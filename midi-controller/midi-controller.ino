@@ -4,15 +4,11 @@
 
 
 //BUTTONS
-/// constants won't change
-const int LED_PIN    = 13; // the number of the LED pin
-
 ezButton button1(2);  // create ezButton object that attach to pin;
 ezButton button2(3);  // create ezButton object that attach to pin;
 ezButton button3(4);  // create ezButton object that attach to pin;
 ezButton button4(5);  // create ezButton object that attach to pin;
 
-// variables will change:
 int button1State = LOW;   // the current state of stomp button
 int button2State = LOW;   // the current state of stomp button
 int button3State = LOW;   // the current state of stomp button
@@ -32,15 +28,19 @@ const int midiHighValue = 127;
 
 
 //LEDSTRIP
-// Create an ledStrip object and specify the pin it will use.
-PololuLedStrip<12> ledStrip;
-
 #define LED_COUNT 8 
+
+PololuLedStrip<12> ledStrip; // Create an ledStrip object and specify the pin it will use.
 rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per color).
 const int ledHue = 130;
 const int ledSat = 255;
 const int ledDim = 10;
 const int ledBright = 110;
+
+
+//OTHER
+const int LED_PIN    = 13; // the number of the LED pin
+
 
 
 
@@ -65,7 +65,7 @@ void loop()
 
   if(button1.isPressed()) 
   {
-    button1State = !button1State; // toggle state of LED
+    button1State = !button1State; // toggle button's state
     digitalWrite(LED_PIN, button1State); //that's only for debugging
     MIDI.sendControlChange(midiCc1, button1State == LOW ? midiLowValue : midiHighValue, midiChannel);
     UpdateLedStrip();
@@ -73,21 +73,21 @@ void loop()
 
   if(button2.isPressed()) 
   {
-    button2State = !button2State; // toggle state of LED
+    button2State = !button2State; // toggle button's state
     MIDI.sendControlChange(midiCc2, button2State == LOW ? midiLowValue : midiHighValue, midiChannel);
     UpdateLedStrip();
   }
   
   if(button3.isPressed()) 
   {
-    button3State = !button3State; // toggle state of LED
+    button3State = !button3State; // toggle button's state
     MIDI.sendControlChange(midiCc3, button3State == LOW ? midiLowValue : midiHighValue, midiChannel);
     UpdateLedStrip();
   }
 
   if(button4.isPressed()) 
   {
-    button4State = !button4State; // toggle state of LED
+    button4State = !button4State; // toggle button's state
     MIDI.sendControlChange(midiCc4, button4State == LOW ? midiLowValue : midiHighValue, midiChannel);
     UpdateLedStrip();
   }      
@@ -98,7 +98,7 @@ void loop()
 
 void UpdateLedStrip()
 {
-    //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse order here too
+    //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
     colors[0] = hsvToRgb(ledHue, ledSat, button4State == LOW ? ledDim : ledBright);
     colors[1] = hsvToRgb(ledHue, ledSat, button4State == LOW ? ledDim : ledBright);
     colors[2] = hsvToRgb(ledHue, ledSat, button3State == LOW ? ledDim : ledBright);
