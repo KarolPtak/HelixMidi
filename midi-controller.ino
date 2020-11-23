@@ -5,67 +5,111 @@
 
 //BUTTONS
 /// constants won't change
-const int BUTTON_PIN = 2; // the number of the pushbutton pin
 const int LED_PIN    = 13; // the number of the LED pin
 
-ezButton button(BUTTON_PIN);  // create ezButton object that attach to pin 7;
+ezButton button1(2);  // create ezButton object that attach to pin;
+ezButton button2(3);  // create ezButton object that attach to pin;
+ezButton button3(4);  // create ezButton object that attach to pin;
+ezButton button4(5);  // create ezButton object that attach to pin;
 
 // variables will change:
-int ledState = LOW;   // the current state of LED
+int button1State = LOW;   // the current state of stomp button
+int button2State = LOW;   // the current state of stomp button
+int button3State = LOW;   // the current state of stomp button
+int button4State = LOW;   // the current state of stomp button
 
+
+//MIDI
+MIDI_CREATE_DEFAULT_INSTANCE();
+const int midiChannel = 1;
+const int midiCc1 = 100;
+const int midiCc2 = 101;
+const int midiCc3 = 102;
+const int midiCc4 = 103;
+
+const int midiLowValue = 0;
+const int midiHighValue = 127;
 
 
 //LEDSTRIP
 // Create an ledStrip object and specify the pin it will use.
 PololuLedStrip<12> ledStrip;
 
-// Create a buffer for holding the colors (3 bytes per color).
-#define LED_COUNT 8
-rgb_color colors[LED_COUNT];
+#define LED_COUNT 8 
+rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per color).
+const int ledHue = 130;
+const int ledSat = 255;
+const int ledDim = 10;
+const int ledBright = 110;
 
-
-//MIDI
-MIDI_CREATE_DEFAULT_INSTANCE();
 
 
 void setup() {
-//   Serial.begin(9600);         // initialize serial
   pinMode(LED_PIN, OUTPUT);   // set arduino pin to output mode
-  button.setDebounceTime(50); // set debounce time to 50 milliseconds
-  MIDI.begin(1);
+
+  button1.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button2.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button3.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button4.setDebounceTime(50); // set debounce time to 50 milliseconds
+  
+  MIDI.begin(midiChannel);
+  UpdateLedStrip();
 }
 
-void loop() {
-  button.loop(); // MUST call the loop() function first
+void loop() 
+{
+  button1.loop(); // MUST call the loop() function first
+  button2.loop(); // MUST call the loop() function first
+  button3.loop(); // MUST call the loop() function first
+  button4.loop(); // MUST call the loop() function first
 
-  if(button.isPressed()) {
-    // Serial.println("The button is pressed");
-
-    // toggle state of LED
-    ledState = !ledState;
-
-    // control LED arccoding to the toggleed sate
-    digitalWrite(LED_PIN, ledState); 
-
-	for(uint16_t i = 0; i < LED_COUNT; i++)
-	{
-		byte x = 180;
-		if(ledState)
-			x = 0;
-		colors[i] = hsvToRgb((uint32_t)x * 359 / 256, 255, 255);
-	}	
-
-	ledStrip.write(colors, LED_COUNT);
-
-	int midiValue = ledState == LOW ? 0 : 127;
-	MIDI.sendControlChange(100, midiValue, 1);
+  if(button1.isPressed()) 
+  {
+    button1State = !button1State; // toggle state of LED
+    digitalWrite(LED_PIN, button1State); //that's only for debugging
+    MIDI.sendControlChange(midiCc1, button1State == LOW ? midiLowValue : midiHighValue, midiChannel);
+    UpdateLedStrip();
   }
+
+  if(button2.isPressed()) 
+  {
+    button2State = !button2State; // toggle state of LED
+    MIDI.sendControlChange(midiCc2, button2State == LOW ? midiLowValue : midiHighValue, midiChannel);
+    UpdateLedStrip();
+  }
+  
+  if(button3.isPressed()) 
+  {
+    button3State = !button3State; // toggle state of LED
+    MIDI.sendControlChange(midiCc3, button3State == LOW ? midiLowValue : midiHighValue, midiChannel);
+    UpdateLedStrip();
+  }
+
+  if(button4.isPressed()) 
+  {
+    button4State = !button4State; // toggle state of LED
+    MIDI.sendControlChange(midiCc4, button4State == LOW ? midiLowValue : midiHighValue, midiChannel);
+    UpdateLedStrip();
+  }      
 }
 
 
 
 
+void UpdateLedStrip()
+{
+    //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse order here too
+    colors[0] = hsvToRgb(ledHue, ledSat, button4State == LOW ? ledDim : ledBright);
+    colors[1] = hsvToRgb(ledHue, ledSat, button4State == LOW ? ledDim : ledBright);
+    colors[2] = hsvToRgb(ledHue, ledSat, button3State == LOW ? ledDim : ledBright);
+    colors[3] = hsvToRgb(ledHue, ledSat, button3State == LOW ? ledDim : ledBright);
+    colors[4] = hsvToRgb(ledHue, ledSat, button2State == LOW ? ledDim : ledBright);
+    colors[5] = hsvToRgb(ledHue, ledSat, button2State == LOW ? ledDim : ledBright);
+    colors[6] = hsvToRgb(ledHue, ledSat, button1State == LOW ? ledDim : ledBright);
+    colors[7] = hsvToRgb(ledHue, ledSat, button1State == LOW ? ledDim : ledBright);
 
+    ledStrip.write(colors, LED_COUNT);  
+}
 
 // Converts a color from HSV to RGB.
 // h is hue, as a number between 0 and 360.
@@ -88,5 +132,3 @@ rgb_color hsvToRgb(uint16_t h, uint8_t s, uint8_t v)
     }
     return rgb_color(r, g, b);
 }
-
-
