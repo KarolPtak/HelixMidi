@@ -24,11 +24,13 @@ It is powered directly from USB, works fine with hx stomp, no buzz/hum
 
 ## Elements used
 
-- Arduino nano
-- 4 Footswitches
+- Arduino nano - https://www.ebay.com/itm/ATmega328P-Micro-Controller-CH340G-Driver-For-Arduino-5V-16MHz-Nano-V3-0-USB/283932008665
+- 4 Footswitches - https://www.ebay.com/itm/2Pin-SPST-Momentary-Touch-Push-Button-Stomp-Foot-Pedal-Electric-Guitar-Switch-SC/163157135937
 - Ledstrip WS2812B - 8 leds in series, 2 per one switch - like these, just cut it to single leds (they are ready for this): https://www.ebay.com/itm/WS2812B-5V-5050-RGB-LED-Strip-1-5M-30-60-144-150-300-Leds-Individual-Addressable/254700428516
 - Case (any, actually) - I used that: https://www.thomann.de/pl/lead_foot_fs2.htm
 - Midi cable / socket - I used that: https://www.thomann.de/pl/the_sssnake_sk366-1_blk_midi_kabel.htm and soldered its wires to arduino
+
+Total cost of elements (except the case) was c.a. 23$.
 
 ## Wiring
 ![Diagram](diagram.jpg?raw=true "Diagram")
