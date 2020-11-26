@@ -14,6 +14,17 @@ int button2State = LOW;   // the current state of stomp button
 int button3State = LOW;   // the current state of stomp button
 int button4State = LOW;   // the current state of stomp button
 
+long button1Time = 0;
+long button2Time = 0;
+long button3Time = 0;
+long button4Time = 0;
+
+//this timeout is to wait for two buttons push before triggering single button push action
+//its time will add up with debounce time however, so total time a button needs to be pushed is debounce time + single button timeout
+const int singleButtonTimeout = 25; 
+
+const int twoButtonTimeout = 500;  //two buttons need to be pushed together for this time before action is triggered
+
 
 //MIDI
 MIDI_CREATE_DEFAULT_INSTANCE();
@@ -32,7 +43,10 @@ const int midiHighValue = 127;
 
 PololuLedStrip<12> ledStrip; // Create an ledStrip object and specify the pin it will use.
 rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per color).
-const int ledHue = 130;
+
+const int ledHue1 = 130;
+const int ledHue2 = 200;
+int ledHue = ledHue1;
 const int ledSat = 255;
 const int ledDim = 10;
 const int ledBright = 110;
@@ -63,34 +77,79 @@ void loop()
   button3.loop(); // MUST call the loop() function first
   button4.loop(); // MUST call the loop() function first
 
-  if(button1.isPressed()) 
+
+  if(button1.isPressed())
+    button1Time = millis();
+  if(button2.isPressed())
+    button2Time = millis();
+  if(button3.isPressed())
+    button3Time = millis();
+  if(button4.isPressed())
+    button4Time = millis();
+
+  if(button1.isReleased())
+    button1Time = 0;
+  if(button2.isReleased())
+    button2Time = 0;
+  if(button3.isReleased())
+    button3Time = 0;
+  if(button4.isReleased())
+    button4Time = 0;
+
+
+
+  if(button1Time && button2Time)
+  {
+    delay(twoButtonTimeout);
+
+    if(button1.getState() == LOW && button2.getState() == LOW) //if after 250ms buttons are still pressed, perform two button action
+    {
+      ledHue = ledHue == ledHue1 ? ledHue2 : ledHue1;
+      UpdateLedStrip();
+      clearTimes();
+    }
+  }
+
+  if(millis() - button1Time > singleButtonTimeout && button1Time && !button2Time && !button3Time && !button4Time) // this 
   {
     button1State = !button1State; // toggle button's state
     digitalWrite(LED_PIN, button1State); //that's only for debugging
     MIDI.sendControlChange(midiCc1, button1State == LOW ? midiLowValue : midiHighValue, midiChannel);
     UpdateLedStrip();
+    clearTimes();
   }
 
-  if(button2.isPressed()) 
+  if(millis() - button2Time > singleButtonTimeout && !button1Time && button2Time && !button3Time && !button4Time) 
   {
     button2State = !button2State; // toggle button's state
     MIDI.sendControlChange(midiCc2, button2State == LOW ? midiLowValue : midiHighValue, midiChannel);
     UpdateLedStrip();
+    clearTimes();
   }
   
-  if(button3.isPressed()) 
+  if(millis() - button3Time > singleButtonTimeout && !button1Time && !button2Time && button3Time && !button4Time) 
   {
     button3State = !button3State; // toggle button's state
     MIDI.sendControlChange(midiCc3, button3State == LOW ? midiLowValue : midiHighValue, midiChannel);
     UpdateLedStrip();
+    clearTimes();
   }
 
-  if(button4.isPressed()) 
+  if(millis() - button4Time > singleButtonTimeout && !button1Time && !button2Time && !button3Time && button4Time) 
   {
     button4State = !button4State; // toggle button's state
     MIDI.sendControlChange(midiCc4, button4State == LOW ? midiLowValue : midiHighValue, midiChannel);
     UpdateLedStrip();
+    clearTimes();
   }      
+}
+
+void clearTimes()
+{
+  button1Time = 0;
+  button2Time = 0;
+  button3Time = 0;
+  button4Time = 0;
 }
 
 
