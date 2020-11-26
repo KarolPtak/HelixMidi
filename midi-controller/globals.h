@@ -19,7 +19,9 @@ extern const int midiCc4;
 extern const int midiCcTapTempo; // Tap/Tempo when high value passed
 extern const int midiCcFs4;
 extern const int midiCcFs5;
-
+extern const int midiCcLooperRecordOverdub;
+extern const int midiCcLooperPlayStop;
+extern const int midiCcLooperUndo;
 
 //LEDSTRIP
 #define LED_COUNT 8 
@@ -30,7 +32,11 @@ extern rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per
 extern const int basicPageHue;
 extern const int patchChangePageHue;
 extern const int looperPageHue;
+extern const int tapTempoHue;
+extern const int looperRecordHue;
 
+extern const int looperRecordSat;
+extern const int tapTempoSat;
 extern const int looperPageSat;
 extern const int basicSat;
 

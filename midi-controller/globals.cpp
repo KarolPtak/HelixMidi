@@ -12,6 +12,9 @@ const int midiCc4 = 103;
 const int midiCcTapTempo = 64; // Tap/Tempo when high value passed
 const int midiCcFs4 = 52; // Simulates Fs4 press, any value is accepted
 const int midiCcFs5 = 53; // Simulates Fs5 press, any value is accepted
+const int midiCcLooperRecordOverdub = 60; // Looper record (when high)/overdub (low)
+const int midiCcLooperPlayStop = 61; // Looper play (when high)/stop (low)
+const int midiCcLooperUndo = 63; // Looper undo (high)
 
 
 //LEDSTRIP
@@ -21,7 +24,11 @@ rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per color)
 const int basicPageHue = 130;
 const int patchChangePageHue = 53;
 const int looperPageHue = 177;
+const int tapTempoHue = 0;
+const int looperRecordHue = 15;
 
+const int looperRecordSat = 250;
+const int tapTempoSat = 230;
 const int looperPageSat = 19;
 const int basicSat = 255;
 

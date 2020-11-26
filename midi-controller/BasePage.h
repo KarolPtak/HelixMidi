@@ -51,6 +51,9 @@ class BasicPlusTapTempoPage : public BasePage {
 };
 
 class LooperPage : public BasePage {
+  private:
+    boolean active;
+    boolean recording;
   protected:
     virtual void updateLedStrip();  
   public:
@@ -62,6 +65,7 @@ class LooperPage : public BasePage {
     virtual void button3Action();
     virtual void button4Action();
     virtual void setup();
+    LooperPage();
 };
 
 class PatchChangePage : public BasePage {

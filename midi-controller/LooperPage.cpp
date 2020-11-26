@@ -2,6 +2,11 @@
 #include "globals.h"
 #include <MIDI.h>
 
+    LooperPage::LooperPage(){
+      active = false;
+      recording = false;
+    }
+
     int LooperPage::id() {
       return LOOPERPAGE;
     }
@@ -12,25 +17,44 @@
       return looperPageSat;
     }
     void LooperPage::button1Action() {
-      button1State = !button1State;
-      digitalWrite(LED_PIN, button1State); //that's only for debugging
-      MIDI.sendControlChange(midiCc1, button1State == LOW ? midiLowValue : midiHighValue, midiChannel);     
+      digitalWrite(LED_PIN, active); //that's only for debugging
+
+      if(active) {
+        if(recording){
+          recording = false;
+          MIDI.sendControlChange(midiCcLooperPlayStop, midiHighValue, midiChannel); //Send play signal, stop recording
+        }
+        else{
+          active = false;
+          MIDI.sendControlChange(midiCcLooperPlayStop, midiLowValue, midiChannel); //Send stop signal, stop recording
+        }
+      }
+      else {
+        active = true;
+        MIDI.sendControlChange(midiCcLooperPlayStop, midiHighValue, midiChannel); //Send play signal, if there is something recorded previously - that's a bit unknown, only stomp knows the truth
+      }
+
       updateLedStrip(); 
     }
     void LooperPage::button2Action() {
-      button2State = !button2State;
-      MIDI.sendControlChange(midiCc2, button2State == LOW ? midiLowValue : midiHighValue, midiChannel);
-      updateLedStrip();
+      MIDI.sendControlChange(midiCcLooperUndo, midiHighValue, midiChannel);
     }
     void LooperPage::button3Action() {
-      button3State = !button3State;
-      MIDI.sendControlChange(midiCc3, button3State == LOW ? midiLowValue : midiHighValue, midiChannel);
+
+      if(active == false){
+        active = true;
+        recording = true;
+        MIDI.sendControlChange(midiCcLooperRecordOverdub, midiHighValue, midiChannel); //Send record signal, turn on looper and start recording
+      }
+      else {
+        recording = true;
+        MIDI.sendControlChange(midiCcLooperRecordOverdub, midiLowValue, midiChannel); //Send overdub signal, start overdubbing
+      }
+
       updateLedStrip();
     }
     void LooperPage::button4Action() {
-      button4State = !button4State;
-      MIDI.sendControlChange(midiCc4, button4State == LOW ? midiLowValue : midiHighValue, midiChannel);
-      updateLedStrip();
+      MIDI.sendControlChange(midiCcTapTempo, midiHighValue, midiChannel);
     }
     void LooperPage::setup() { //setup when page is changed to this
       updateLedStrip();
@@ -39,14 +63,14 @@
     void LooperPage::updateLedStrip()
     {
         //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
-        colors[0] = hsvToRgb(looperPageHue, looperPageSat, button4State == LOW ? ledDim : ledBright);
-        colors[1] = hsvToRgb(looperPageHue, looperPageSat, button4State == LOW ? ledDim : ledBright);
-        colors[2] = hsvToRgb(looperPageHue, looperPageSat, button3State == LOW ? ledDim : ledBright);
-        colors[3] = hsvToRgb(looperPageHue, looperPageSat, button3State == LOW ? ledDim : ledBright);
-        colors[4] = hsvToRgb(looperPageHue, looperPageSat, button2State == LOW ? ledDim : ledBright);
-        colors[5] = hsvToRgb(looperPageHue, looperPageSat, button2State == LOW ? ledDim : ledBright);
-        colors[6] = hsvToRgb(looperPageHue, looperPageSat, button1State == LOW ? ledDim : ledBright);
-        colors[7] = hsvToRgb(looperPageHue, looperPageSat, button1State == LOW ? ledDim : ledBright);
+        colors[0] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);
+        colors[1] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim); 
+        colors[2] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);
+        colors[3] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);
+        colors[4] = hsvToRgb(looperPageHue, looperPageSat, ledDim);
+        colors[5] = hsvToRgb(looperPageHue, looperPageSat, ledDim);
+        colors[6] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
+        colors[7] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
 
         ledStrip.write(colors, LED_COUNT);  
     }   

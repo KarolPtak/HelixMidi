@@ -35,14 +35,14 @@
     void PatchChangePage::updateLedStrip()
     {
         //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
-        colors[0] = hsvToRgb(0, basicSat, ledDim);
-        colors[1] = hsvToRgb(0, basicSat, ledDim);        
+        colors[0] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);
+        colors[1] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);        
         colors[2] = hsvToRgb(patchChangePageHue, basicSat, ledDim);
-        colors[3] = hsvToRgb(patchChangePageHue, basicSat, ledDim );
+        colors[3] = hsvToRgb(patchChangePageHue, basicSat, ledDim ); //TODO: Turn off one, to make it more readable that this is patch change, not an ordinary footswitch
         colors[4] = hsvToRgb(basicPageHue, basicSat, button2State == LOW ? ledDim : ledBright);
         colors[5] = hsvToRgb(basicPageHue, basicSat, button2State == LOW ? ledDim : ledBright);
         colors[6] = hsvToRgb(patchChangePageHue, basicSat, ledDim);
-        colors[7] = hsvToRgb(patchChangePageHue, basicSat, ledDim);
+        colors[7] = hsvToRgb(patchChangePageHue, basicSat, ledDim); //TODO: Turn off one, to make it more readable that this is patch change, not an ordinary footswitch
 
         ledStrip.write(colors, LED_COUNT);  
     }   

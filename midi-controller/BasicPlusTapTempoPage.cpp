@@ -40,8 +40,8 @@
     void BasicPlusTapTempoPage::updateLedStrip()
     {
         //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
-        colors[0] = hsvToRgb(0, basicSat, ledDim);
-        colors[1] = hsvToRgb(0, basicSat, ledDim);
+        colors[0] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);
+        colors[1] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);
         colors[2] = hsvToRgb(basicPageHue, basicSat, button3State == LOW ? ledDim : ledBright);
         colors[3] = hsvToRgb(basicPageHue, basicSat, button3State == LOW ? ledDim : ledBright);
         colors[4] = hsvToRgb(basicPageHue, basicSat, button2State == LOW ? ledDim : ledBright);
