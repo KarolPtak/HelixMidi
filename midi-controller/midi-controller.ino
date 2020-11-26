@@ -21,7 +21,7 @@ unsigned long button4Time = 0;
 
 //this timeout is to wait for two buttons push before triggering single button push action
 //its time will add up with debounce time however, so total time a button needs to be pushed is debounce time + single button timeout
-const int singleButtonTimeout = 25; 
+const int singleButtonTimeout = 35; 
 const int twoButtonTimeout = 1000;  //two buttons need to be pushed together for this time before action is triggered
 const int debounceTime = 50; // debounce time helps eliminating false/accidental multiple button clicks
 
@@ -109,15 +109,14 @@ void loop()
     button4Time = 0;
 
 
-
   if(button1Time && button2Time)
   {
     time = millis();
+    boolean exited = false;
+    while(millis() - time < twoButtonTimeout && !exited) //we can stop waiting faster if buttons are released
+      exited = button1.getStateRaw() == HIGH || button2.getStateRaw() == HIGH;
 
-    while(millis() - time < twoButtonTimeout && button1.getStateRaw() == LOW && button2.getStateRaw() == LOW) //we can stop waiting faster if buttons are released
-    { /*nothing, just waiting*/}
-
-    if(button1.getStateRaw() == LOW && button2.getStateRaw() == LOW) //if after twoButtonTimeout buttons are still pressed, perform two button action
+    if(!exited) //if before twoButtonTimeout any of buttons is depressed, do not trigger two button action
     {
       //these 2 buttons switch enter to basicPlusTapTempoPage and patchChangePage pages
       switch(page){
@@ -133,20 +132,19 @@ void loop()
       }
 
       UpdateLedStrip();
-      clearTimes();
     }
 
-    clearTimes();    
+    clearTimes(); //we 'consumed' current buttons hits
   }
 
   if(button3Time && button4Time)
   {
     time = millis();
+    boolean exited = false;
+    while(millis() - time < twoButtonTimeout && !exited) //we can stop waiting faster if buttons are released
+      exited = button3.getStateRaw() == HIGH || button4.getStateRaw() == HIGH;
 
-    while(millis() - time < twoButtonTimeout && button3.getStateRaw() == LOW && button4.getStateRaw() == LOW) //we can stop waiting faster if buttons are released
-    { /*nothing, just waiting*/}
-
-    if(button3.getStateRaw() == LOW && button4.getStateRaw() == LOW) //if after twoButtonTimeout buttons are still pressed, perform two button action
+    if(!exited) //if before twoButtonTimeout any of buttons is depressed, do not trigger two button action
     {
       switch (page)
       {
@@ -159,7 +157,6 @@ void loop()
       }
 
       UpdateLedStrip();
-      clearTimes();
     }
 
     clearTimes();    
