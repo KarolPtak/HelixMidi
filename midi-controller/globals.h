@@ -12,6 +12,9 @@ extern MIDI_NAMESPACE::MidiInterface<MIDI_NAMESPACE::SerialMIDI<HardwareSerial>>
 extern const int midiChannel;
 extern const int midiLowValue;
 extern const int midiHighValue;
+extern const int midiSnapshot1Value;
+extern const int midiSnapshot2Value;
+extern const int midiSnapshot3Value;
 extern const int midiCc1;
 extern const int midiCc2;
 extern const int midiCc3;
@@ -23,6 +26,7 @@ extern const int midiCcLooperRecordOverdub;
 extern const int midiCcLooperPlayStop;
 extern const int midiCcLooperUndo;
 extern const int midiCcTunerOnOff; // Tuner on/off
+extern const int midiCcSnapshotSelect; // Tuner on/off
 
 //LEDSTRIP
 #define LED_COUNT 8 
@@ -32,6 +36,7 @@ extern rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per
 
 extern const int basicPageHue;
 extern const int patchChangePageHue;
+extern const int snapshotChangePageHue;
 extern const int looperPageHue;
 extern const int tapTempoHue;
 extern const int tunerHue;
@@ -65,8 +70,9 @@ extern const int eepromAddress; //some random address ;)
 #define BASICPAGE 1
 #define BASICPLUSTAPTEMPOPAGE 2
 #define PATCHCHANGEPAGE 3
-#define LOOPERPAGE 4
-#define LOOPER2PAGE 5
+#define SNAPSHOTCHANGEPAGE 4
+#define LOOPERPAGE 5
+#define LOOPER2PAGE 6
 
 
 extern rgb_color hsvToRgb(uint16_t h, uint8_t s, uint8_t v);

@@ -89,6 +89,21 @@ class PatchChangePage : public BasePage {
     virtual void setup();
 };
 
+class SnapshotChangePage : public BasePage {
+  private:
+    int currentSnapshot;
+  protected:
+    virtual void updateLedStrip();  
+  public:
+    virtual int id();
+    virtual void button1Action();
+    virtual void button2Action(boolean longPress);
+    virtual void button3Action();
+    virtual void button4Action();
+    virtual void setup();
+    SnapshotChangePage();
+};
+
 
 
 #endif

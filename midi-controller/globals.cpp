@@ -5,6 +5,9 @@
 const int midiChannel = 1;
 const int midiLowValue = 0;
 const int midiHighValue = 127;
+const int midiSnapshot1Value = 0;
+const int midiSnapshot2Value = 1;
+const int midiSnapshot3Value = 2;
 const int midiCc1 = 100;
 const int midiCc2 = 101;
 const int midiCc3 = 102;
@@ -16,6 +19,7 @@ const int midiCcLooperRecordOverdub = 60; // Looper record (when high)/overdub (
 const int midiCcLooperPlayStop = 61; // Looper play (when high)/stop (low)
 const int midiCcLooperUndo = 63; // Looper undo (high)
 const int midiCcTunerOnOff = 68; // Tuner on/off
+const int midiCcSnapshotSelect = 69; // Tuner on/off
 
 
 //LEDSTRIP
@@ -24,6 +28,7 @@ rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per color)
 
 const int basicPageHue = 130;
 const int patchChangePageHue = 53;
+const int snapshotChangePageHue = 180;
 const int looperPageHue = 177;
 const int tapTempoHue = 0;
 const int tunerHue = 0;

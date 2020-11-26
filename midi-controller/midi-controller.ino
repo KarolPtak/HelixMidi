@@ -27,9 +27,10 @@ unsigned long time = 0;
 //PAGES
 BasicPage _basicPage;
 BasicPlusTapTempoPage _basicPlusTapTempoPage;
+PatchChangePage _patchChangePage;
+SnapshotChangePage _snapshotChangePage;
 LooperPage _looperPage;
 Looper2Page _looper2Page;
-PatchChangePage _patchChangePage;
 
 BasePage *_page;
 
@@ -90,6 +91,9 @@ void loop() {
           _page = &_patchChangePage;
           break;
         case PATCHCHANGEPAGE:
+          _page = &_snapshotChangePage;
+          break;
+        case SNAPSHOTCHANGEPAGE:
           _page = &_basicPage;
           break;
         default:
@@ -171,6 +175,8 @@ BasePage* getPage(int pageId) {
     return &_basicPlusTapTempoPage;
   case PATCHCHANGEPAGE:
     return &_patchChangePage;
+  case SNAPSHOTCHANGEPAGE:
+    return &_snapshotChangePage;
   case LOOPERPAGE:
     return &_looperPage;
   case LOOPER2PAGE:
