@@ -2,11 +2,6 @@
 #include "globals.h"
 #include <MIDI.h>
 
-    const int LooperPage::midiCc1 = 100;
-    const int LooperPage::midiCc2 = 101;
-    const int LooperPage::midiCc3 = 102;
-    const int LooperPage::midiCc4 = 103;
-
     int LooperPage::id() {
       return LOOPERPAGE;
     }

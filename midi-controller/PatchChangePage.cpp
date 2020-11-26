@@ -2,11 +2,6 @@
 #include "globals.h"
 #include <MIDI.h>
 
-    const int PatchChangePage::midiCc1 = 100;
-    const int PatchChangePage::midiCc2 = 101;
-    const int PatchChangePage::midiCc3 = 102;
-    const int PatchChangePage::midiCc4 = 103;
-
     int PatchChangePage::id() {
       return PATCHCHANGEPAGE;
     }

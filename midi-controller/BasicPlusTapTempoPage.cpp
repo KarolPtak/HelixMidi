@@ -3,10 +3,6 @@
 #include <MIDI.h>
 #include "Arduino.h"
 
-    const int BasicPlusTapTempoPage::midiCc1 = 100;
-    const int BasicPlusTapTempoPage::midiCc2 = 101;
-    const int BasicPlusTapTempoPage::midiCc3 = 102;
-    const int BasicPlusTapTempoPage::midiCcTapTempo = 64; // Tap/Tempo when high value passed
 
     int BasicPlusTapTempoPage::id() {
       return BASICPLUSTAPTEMPOPAGE;
@@ -39,10 +35,6 @@
 
     void BasicPlusTapTempoPage::setup() { //setup when page is changed to this
       updateLedStrip();
-    }
-
-    void BasicPlusTapTempoPage::loop()
-    {
     }
 
     void BasicPlusTapTempoPage::updateLedStrip()

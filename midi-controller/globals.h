@@ -12,6 +12,14 @@ extern MIDI_NAMESPACE::MidiInterface<MIDI_NAMESPACE::SerialMIDI<HardwareSerial>>
 extern const int midiChannel;
 extern const int midiLowValue;
 extern const int midiHighValue;
+extern const int midiCc1;
+extern const int midiCc2;
+extern const int midiCc3;
+extern const int midiCc4;
+extern const int midiCcTapTempo; // Tap/Tempo when high value passed
+extern const int midiCcFs4;
+extern const int midiCcFs5;
+
 
 //LEDSTRIP
 #define LED_COUNT 8 

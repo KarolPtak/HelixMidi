@@ -5,6 +5,14 @@
 const int midiChannel = 1;
 const int midiLowValue = 0;
 const int midiHighValue = 127;
+const int midiCc1 = 100;
+const int midiCc2 = 101;
+const int midiCc3 = 102;
+const int midiCc4 = 103;
+const int midiCcTapTempo = 64; // Tap/Tempo when high value passed
+const int midiCcFs4 = 52; // Simulates Fs4 press, any value is accepted
+const int midiCcFs5 = 53; // Simulates Fs5 press, any value is accepted
+
 
 //LEDSTRIP
 PololuLedStrip<12> ledStrip; // Create an ledStrip object and specify the pin it will use.
