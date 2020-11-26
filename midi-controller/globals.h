@@ -1,4 +1,5 @@
 #include <MIDI.h>
+#include <PololuLedStrip.h>
 #ifndef globals_h
 #define globals_h
 
@@ -19,6 +20,9 @@ extern const int midiHighValue;
 
 //LEDSTRIP
 #define LED_COUNT 8 
+
+extern PololuLedStrip<12> ledStrip; // Create an ledStrip object and specify the pin it will use.
+extern rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per color).
 
 extern const int basicPageHue;
 extern const int basicPlusTapTempoPageHue;
@@ -43,11 +47,15 @@ extern const int debounceTime; // debounce time helps eliminating false/accident
 //OTHER
 extern const int LED_PIN; // the number of the LED pin
 
-// //PAGES
+//PAGES
 #define BASICPAGE 1
 #define BASICPLUSTAPTEMPOPAGE 2
 #define LOOPERPAGE 3
 #define PATCHCHANGEPAGE 4
+
+
+extern rgb_color hsvToRgb(uint16_t h, uint8_t s, uint8_t v);
+
 
 #endif
 
