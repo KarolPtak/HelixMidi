@@ -34,10 +34,12 @@ extern const int basicPageHue;
 extern const int patchChangePageHue;
 extern const int looperPageHue;
 extern const int tapTempoHue;
+extern const int tunerHue;
 extern const int looperRecordHue;
 
 extern const int looperRecordSat;
 extern const int tapTempoSat;
+extern const int tunerSat;
 extern const int looperPageSat;
 extern const int basicSat;
 

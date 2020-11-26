@@ -35,7 +35,7 @@
         tunerAction();
         return;
       }
-      
+
       //undo/redo has a bit more complex behaviour, so it may cause the state of active/recording, and the state of looper in the stomp to be not in sync
       MIDI.sendControlChange(midiCcLooperUndo, midiHighValue, midiChannel);
     }
@@ -68,7 +68,7 @@
         colors[2] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);
         colors[3] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);
         colors[4] = hsvToRgb(looperPageHue, looperPageSat, ledDim);
-        colors[5] = hsvToRgb(looperPageHue, looperPageSat, ledDim);
+        colors[5] = hsvToRgb(tunerHue, tunerSat, ledDim);
         colors[6] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
         colors[7] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
 

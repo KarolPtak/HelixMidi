@@ -44,7 +44,7 @@
         colors[2] = hsvToRgb(basicPageHue, basicSat, button3State == LOW ? ledDim : ledBright);
         colors[3] = hsvToRgb(basicPageHue, basicSat, button3State == LOW ? ledDim : ledBright);
         colors[4] = hsvToRgb(basicPageHue, basicSat, button2State == LOW ? ledDim : ledBright);
-        colors[5] = hsvToRgb(basicPageHue, basicSat, button2State == LOW ? ledDim : ledBright);
+        colors[5] = hsvToRgb(tunerHue, tunerSat, button2State == LOW ? ledDim : ledBright);
         colors[6] = hsvToRgb(basicPageHue, basicSat, button1State == LOW ? ledDim : ledBright);
         colors[7] = hsvToRgb(basicPageHue, basicSat, button1State == LOW ? ledDim : ledBright);
 

@@ -15,7 +15,7 @@
         tunerAction();
         return;
       }
-      
+
       button2State = !button2State;
       MIDI.sendControlChange(midiCc2, button2State == LOW ? midiLowValue : midiHighValue, midiChannel);
       updateLedStrip();
@@ -39,7 +39,7 @@
         colors[2] = hsvToRgb(patchChangePageHue, basicSat, ledDim);
         colors[3] = hsvToRgb(patchChangePageHue, basicSat, ledDim ); //TODO: Turn off one, to make it more readable that this is patch change, not an ordinary footswitch
         colors[4] = hsvToRgb(basicPageHue, basicSat, button2State == LOW ? ledDim : ledBright);
-        colors[5] = hsvToRgb(basicPageHue, basicSat, button2State == LOW ? ledDim : ledBright);
+        colors[5] = hsvToRgb(tunerHue, tunerSat, button2State == LOW ? ledDim : ledBright);
         colors[6] = hsvToRgb(patchChangePageHue, basicSat, ledDim);
         colors[7] = hsvToRgb(patchChangePageHue, basicSat, ledDim); //TODO: Turn off one, to make it more readable that this is patch change, not an ordinary footswitch
 

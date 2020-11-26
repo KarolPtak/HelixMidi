@@ -26,10 +26,12 @@ const int basicPageHue = 130;
 const int patchChangePageHue = 53;
 const int looperPageHue = 177;
 const int tapTempoHue = 0;
+const int tunerHue = 0;
 const int looperRecordHue = 15;
 
 const int looperRecordSat = 250;
 const int tapTempoSat = 230;
+const int tunerSat = 230;
 const int looperPageSat = 19;
 const int basicSat = 255;
 
