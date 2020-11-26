@@ -11,7 +11,6 @@ PololuLedStrip<12> ledStrip; // Create an ledStrip object and specify the pin it
 rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per color).
 
 const int basicPageHue = 130;
-const int basicPlusTapTempoPageHue = 200;
 const int patchChangePageHue = 53;
 const int looperPageHue = 177;
 
@@ -20,6 +19,8 @@ const int basicSat = 255;
 
 const int ledDim = 10;
 const int ledBright = 110;
+
+const int lowestTempo = 2000; //in miliseconds
 
 //BUTTONS
 //this timeout is to wait for two buttons push before triggering single button push action

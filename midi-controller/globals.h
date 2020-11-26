@@ -20,7 +20,6 @@ extern PololuLedStrip<12> ledStrip; // Create an ledStrip object and specify the
 extern rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per color).
 
 extern const int basicPageHue;
-extern const int basicPlusTapTempoPageHue;
 extern const int patchChangePageHue;
 extern const int looperPageHue;
 
@@ -30,6 +29,7 @@ extern const int basicSat;
 extern const int ledDim;
 extern const int ledBright;
 
+extern const int lowestTempo;
 
 //BUTTONS
 //this timeout is to wait for two buttons push before triggering single button push action
