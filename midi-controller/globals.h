@@ -55,6 +55,8 @@ extern const int debounceTime; // debounce time helps eliminating false/accident
 
 //OTHER
 extern const int LED_PIN; // the number of the LED pin
+extern const int eepromOffset; //some random offset ;)
+extern const int eepromAddress; //some random address ;)
 
 //PAGES
 #define BASICPAGE 1

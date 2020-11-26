@@ -3,6 +3,7 @@
 #include <MIDI.h>
 #include "BasePage.h"
 #include "globals.h"
+#include "PagePersister.h"
 
 
 //BUTTONS
@@ -30,7 +31,9 @@ LooperPage _looperPage;
 Looper2Page _looper2Page;
 PatchChangePage _patchChangePage;
 
-BasePage *_page = &_basicPage;
+BasePage *_page;
+
+PagePersister pagePersister;
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);   // set arduino pin to output mode
@@ -41,6 +44,9 @@ void setup() {
   button4.setDebounceTime(debounceTime); 
   
   MIDI.begin(midiChannel);
+  pagePersister.init();
+  _page = getPage(pagePersister.get());
+
   _page->setup();
 }
 
@@ -94,6 +100,7 @@ void loop()
           break;
       }
 
+      pagePersister.update(_page->id());
       _page->setup();
     }
 
@@ -122,6 +129,7 @@ void loop()
           break;
       }
 
+      pagePersister.update(_page->id());
       _page->setup();
     }
 
@@ -161,3 +169,21 @@ void clearTimes()
   button4Time = 0;
 }
 
+
+BasePage* getPage(int pageId){
+  switch (pageId)
+  {
+  case BASICPAGE:
+    return &_basicPage;
+  case BASICPLUSTAPTEMPOPAGE:
+    return &_basicPlusTapTempoPage;
+  case PATCHCHANGEPAGE:
+    return &_patchChangePage;
+  case LOOPERPAGE:
+    return &_looperPage;
+  case LOOPER2PAGE:
+    return &_looper2Page;
+  default:
+    return &_basicPage;
+  }
+}

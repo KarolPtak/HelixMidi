@@ -47,6 +47,8 @@ const int debounceTime = 50; // debounce time helps eliminating false/accidental
 
 //OTHER
 const int LED_PIN    = 13; // the number of the LED pin
+const int eepromOffset = 10; //some random offset ;) to make sure the values are correct
+const int eepromAddress = 123; //some random address ;)
 
 
 // Converts a color from HSV to RGB.
