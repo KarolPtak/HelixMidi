@@ -14,16 +14,16 @@ int button2State = LOW;   // the current state of stomp button
 int button3State = LOW;   // the current state of stomp button
 int button4State = LOW;   // the current state of stomp button
 
-long button1Time = 0;
-long button2Time = 0;
-long button3Time = 0;
-long button4Time = 0;
+unsigned long button1Time = 0;
+unsigned long button2Time = 0;
+unsigned long button3Time = 0;
+unsigned long button4Time = 0;
 
 //this timeout is to wait for two buttons push before triggering single button push action
 //its time will add up with debounce time however, so total time a button needs to be pushed is debounce time + single button timeout
 const int singleButtonTimeout = 25; 
 
-const int twoButtonTimeout = 500;  //two buttons need to be pushed together for this time before action is triggered
+const int twoButtonTimeout = 1000;  //two buttons need to be pushed together for this time before action is triggered
 
 
 //MIDI
@@ -44,18 +44,30 @@ const int midiHighValue = 127;
 PololuLedStrip<12> ledStrip; // Create an ledStrip object and specify the pin it will use.
 rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per color).
 
-const int ledHue1 = 130;
-const int ledHue2 = 200;
-int ledHue = ledHue1;
-const int ledSat = 255;
+const int basicPageHue = 130;
+const int basicPlusTapTempoPageHue = 200;
+const int patchChangePageHue = 53;
+const int looperPageHue = 177;
+const int looperPageSat = 19;
+const int basicSat = 255;
+
+
+int ledHue = basicPageHue;
+int ledSat = basicSat;
 const int ledDim = 10;
 const int ledBright = 110;
 
 
 //OTHER
 const int LED_PIN    = 13; // the number of the LED pin
+unsigned long time = 0;
 
+const int basicPage = 1;
+const int basicPlusTapTempoPage = 2;
+const int looperPage = 3;
+const int patchChangePage = 4;
 
+int page = basicPage;
 
 
 void setup() {
@@ -100,15 +112,58 @@ void loop()
 
   if(button1Time && button2Time)
   {
-    delay(twoButtonTimeout);
+    time = millis();
 
-    if(button1.getState() == LOW && button2.getState() == LOW) //if after 250ms buttons are still pressed, perform two button action
+    while(millis() - time < twoButtonTimeout && button1.getStateRaw() == LOW && button2.getStateRaw() == LOW) //we can stop waiting faster if buttons are released
+    { /*nothing, just waiting*/}
+
+    if(button1.getStateRaw() == LOW && button2.getStateRaw() == LOW) //if after twoButtonTimeout buttons are still pressed, perform two button action
     {
-      ledHue = ledHue == ledHue1 ? ledHue2 : ledHue1;
+      //these 2 buttons switch enter to basicPlusTapTempoPage and patchChangePage pages
+      switch(page){
+        case basicPlusTapTempoPage:
+          page = patchChangePage;
+          break;
+        case patchChangePage:
+          page = basicPage;
+          break;
+        default:
+          page = basicPlusTapTempoPage; //if current page is basic or not from this subset, then go to first page from this subset
+          break;
+      }
+
       UpdateLedStrip();
       clearTimes();
     }
+
+    clearTimes();    
   }
+
+  if(button3Time && button4Time)
+  {
+    time = millis();
+
+    while(millis() - time < twoButtonTimeout && button3.getStateRaw() == LOW && button4.getStateRaw() == LOW) //we can stop waiting faster if buttons are released
+    { /*nothing, just waiting*/}
+
+    if(button3.getStateRaw() == LOW && button4.getStateRaw() == LOW) //if after twoButtonTimeout buttons are still pressed, perform two button action
+    {
+      switch (page)
+      {
+        case looperPage:
+          page = basicPage;
+          break;
+        default:
+          page = looperPage;
+          break;
+      }
+
+      UpdateLedStrip();
+      clearTimes();
+    }
+
+    clearTimes();    
+  }  
 
   if(millis() - button1Time > singleButtonTimeout && button1Time && !button2Time && !button3Time && !button4Time) // this 
   {
@@ -157,6 +212,30 @@ void clearTimes()
 
 void UpdateLedStrip()
 {
+    switch (page)
+    {
+      case basicPage:
+        ledHue = basicPageHue;
+        ledSat = basicSat;
+        break;
+      case basicPlusTapTempoPage:
+        ledHue = basicPlusTapTempoPageHue;
+        ledSat = basicSat;
+        break;
+      case looperPage:
+        ledHue = looperPageHue;
+        ledSat = looperPageSat;
+        break;
+      case patchChangePage:
+        ledHue = patchChangePageHue;
+        ledSat = basicSat;
+        break;
+    
+      default:
+        break;
+    }
+
+
     //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
     colors[0] = hsvToRgb(ledHue, ledSat, button4State == LOW ? ledDim : ledBright);
     colors[1] = hsvToRgb(ledHue, ledSat, button4State == LOW ? ledDim : ledBright);
