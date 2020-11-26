@@ -7,12 +7,6 @@
     int BasicPlusTapTempoPage::id() {
       return BASICPLUSTAPTEMPOPAGE;
     }
-    int BasicPlusTapTempoPage::getHue() {
-      return basicPageHue;
-    }
-    int BasicPlusTapTempoPage::getSat() {
-      return basicSat;
-    }
     void BasicPlusTapTempoPage::button1Action() {
       button1State = !button1State;
       digitalWrite(LED_PIN, button1State); //that's only for debugging

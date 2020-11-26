@@ -10,12 +10,6 @@
     int BasicPage::id() {
       return BASICPAGE;
     }
-    int BasicPage::getHue() {
-      return basicPageHue;
-    }
-    int BasicPage::getSat() {
-      return basicSat;
-    }
     void BasicPage::button1Action() {
       button1State = !button1State;
       digitalWrite(LED_PIN, button1State); //that's only for debugging

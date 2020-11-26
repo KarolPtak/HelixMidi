@@ -10,12 +10,6 @@
     int Looper2Page::id() {
       return LOOPER2PAGE;
     }
-    int Looper2Page::getHue() {
-      return looperPageHue;
-    }
-    int Looper2Page::getSat() {
-      return looperPageSat;
-    }
     void Looper2Page::button1Action() {
         digitalWrite(LED_PIN, active); //that's only for debugging
 

@@ -12,8 +12,6 @@ class BasePage {
     virtual void updateLedStrip();
   public:
     virtual int id() = 0;
-    virtual int getHue() = 0;
-    virtual int getSat() = 0;
     virtual void button1Action() = 0;
     virtual void button2Action() = 0;
     virtual void button3Action() = 0;
@@ -27,8 +25,6 @@ class BasicPage : public BasePage {
     virtual void updateLedStrip(); //do all these inherited method need to be repeated here?
   public:
     virtual int id();
-    virtual int getHue();
-    virtual int getSat();
     virtual void button1Action();
     virtual void button2Action();
     virtual void button3Action();
@@ -41,8 +37,6 @@ class BasicPlusTapTempoPage : public BasePage {
     virtual void updateLedStrip();
   public:
     virtual int id();
-    virtual int getHue();
-    virtual int getSat();
     virtual void button1Action();
     virtual void button2Action();
     virtual void button3Action();
@@ -58,8 +52,6 @@ class LooperPage : public BasePage {
     virtual void updateLedStrip();  
   public:
     virtual int id();
-    virtual int getHue();
-    virtual int getSat();
     virtual void button1Action();
     virtual void button2Action();
     virtual void button3Action();
@@ -76,8 +68,6 @@ class Looper2Page : public BasePage {
     virtual void updateLedStrip();  
   public:
     virtual int id();
-    virtual int getHue();
-    virtual int getSat();
     virtual void button1Action();
     virtual void button2Action();
     virtual void button3Action();
@@ -91,8 +81,6 @@ class PatchChangePage : public BasePage {
     virtual void updateLedStrip();  
   public:
     virtual int id();
-    virtual int getHue();
-    virtual int getSat();
     virtual void button1Action();
     virtual void button2Action();
     virtual void button3Action();

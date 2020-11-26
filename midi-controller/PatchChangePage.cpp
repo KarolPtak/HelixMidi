@@ -5,12 +5,6 @@
     int PatchChangePage::id() {
       return PATCHCHANGEPAGE;
     }
-    int PatchChangePage::getHue() {
-      return patchChangePageHue;
-    }
-    int PatchChangePage::getSat() {
-      return basicSat;
-    }
     void PatchChangePage::button1Action() {
       button1State = !button1State;
       digitalWrite(LED_PIN, button1State); //that's only for debugging
