@@ -47,10 +47,6 @@ class BasicPlusTapTempoPage : public BasePage {
     static const int midiCc2;
     static const int midiCc3;
     static const int midiCcTapTempo;   
-    unsigned long lastTapTime;
-    int tempo;
-    unsigned long lastBlinkTime;
-    void BasicPlusTapTempoPage::switchTempoLeds(int state);
   protected:
     virtual void updateLedStrip();
   public:
@@ -63,7 +59,6 @@ class BasicPlusTapTempoPage : public BasePage {
     virtual void button4Action();
     virtual void setup();
     virtual void loop(); // Let the page do its own job, like maybe blinking the tap/tempo led?
-    BasicPlusTapTempoPage();
 };
 
 class LooperPage : public BasePage {
