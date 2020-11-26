@@ -5,14 +5,14 @@
 
 //BUTTONS
 ezButton button1(2);  // create ezButton object that attach to pin;
-ezButton button2(3);  // create ezButton object that attach to pin;
-ezButton button3(4);  // create ezButton object that attach to pin;
-ezButton button4(5);  // create ezButton object that attach to pin;
+ezButton button2(3);  
+ezButton button3(4);  
+ezButton button4(5);  
 
 int button1State = LOW;   // the current state of stomp button
-int button2State = LOW;   // the current state of stomp button
-int button3State = LOW;   // the current state of stomp button
-int button4State = LOW;   // the current state of stomp button
+int button2State = LOW;   
+int button3State = LOW;   
+int button4State = LOW;   
 
 unsigned long button1Time = 0;
 unsigned long button2Time = 0;
@@ -22,8 +22,8 @@ unsigned long button4Time = 0;
 //this timeout is to wait for two buttons push before triggering single button push action
 //its time will add up with debounce time however, so total time a button needs to be pushed is debounce time + single button timeout
 const int singleButtonTimeout = 25; 
-
 const int twoButtonTimeout = 1000;  //two buttons need to be pushed together for this time before action is triggered
+const int debounceTime = 50; // debounce time helps eliminating false/accidental multiple button clicks
 
 
 //MIDI
@@ -73,10 +73,10 @@ int page = basicPage;
 void setup() {
   pinMode(LED_PIN, OUTPUT);   // set arduino pin to output mode
 
-  button1.setDebounceTime(50); // set debounce time to 50 milliseconds
-  button2.setDebounceTime(50); // set debounce time to 50 milliseconds
-  button3.setDebounceTime(50); // set debounce time to 50 milliseconds
-  button4.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button1.setDebounceTime(debounceTime);
+  button2.setDebounceTime(debounceTime); 
+  button3.setDebounceTime(debounceTime); 
+  button4.setDebounceTime(debounceTime); 
   
   MIDI.begin(midiChannel);
   UpdateLedStrip();
@@ -165,7 +165,7 @@ void loop()
     clearTimes();    
   }  
 
-  if(millis() - button1Time > singleButtonTimeout && button1Time && !button2Time && !button3Time && !button4Time) // this 
+  if(millis() - button1Time > singleButtonTimeout && button1Time && !button2Time && !button3Time && !button4Time) // if only first button is pressed, and is pressed for at least singleButtonTimeout miliseconds
   {
     button1State = !button1State; // toggle button's state
     digitalWrite(LED_PIN, button1State); //that's only for debugging
