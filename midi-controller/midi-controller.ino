@@ -3,6 +3,9 @@
 #include <MIDI.h>
 
 
+
+
+
 //BUTTONS
 ezButton button1(2);  // create ezButton object that attach to pin;
 ezButton button2(3);  
@@ -70,6 +73,64 @@ const int patchChangePage = 4;
 int page = basicPage;
 
 
+
+
+class BasePage {
+  public:
+    virtual int getHue() = 0;
+    virtual int getSat() = 0;
+};
+
+class BasicPage : public BasePage {
+  public:
+    virtual int getHue() {
+      return basicPageHue;
+    }
+    virtual int getSat() {
+      return basicSat;
+    }
+};
+
+class BasicPlusTapTempoPage : public BasePage {
+  public:
+    virtual int getHue() {
+      return basicPlusTapTempoPageHue;
+    }
+    virtual int getSat() {
+      return basicSat;
+    }
+};
+
+class LooperPage : public BasePage {
+  public:
+    virtual int getHue() {
+      return looperPageHue;
+    }
+    virtual int getSat() {
+      return looperPageSat;
+    }
+};
+
+class PatchChangePage : public BasePage {
+  public:
+    virtual int getHue() {
+      return patchChangePageHue;
+    }
+    virtual int getSat() {
+      return basicSat;
+    }
+};
+
+BasicPage _basicPage;
+BasicPlusTapTempoPage _basicPlusTapTempoPage;
+LooperPage _looperPage;
+PatchChangePage _patchChangePage;
+
+BasePage *_page = &_basicPage;
+
+
+
+
 void setup() {
   pinMode(LED_PIN, OUTPUT);   // set arduino pin to output mode
 
@@ -122,12 +183,15 @@ void loop()
       switch(page){
         case basicPlusTapTempoPage:
           page = patchChangePage;
+          _page = &_patchChangePage;
           break;
         case patchChangePage:
           page = basicPage;
+          _page = &_basicPage;
           break;
         default:
           page = basicPlusTapTempoPage; //if current page is basic or not from this subset, then go to first page from this subset
+          _page = &_basicPlusTapTempoPage;
           break;
       }
 
@@ -150,9 +214,11 @@ void loop()
       {
         case looperPage:
           page = basicPage;
+          _page = &_basicPage;
           break;
         default:
           page = looperPage;
+          _page = &_looperPage;
           break;
       }
 
@@ -209,28 +275,31 @@ void clearTimes()
 
 void UpdateLedStrip()
 {
-    switch (page)
-    {
-      case basicPage:
-        ledHue = basicPageHue;
-        ledSat = basicSat;
-        break;
-      case basicPlusTapTempoPage:
-        ledHue = basicPlusTapTempoPageHue;
-        ledSat = basicSat;
-        break;
-      case looperPage:
-        ledHue = looperPageHue;
-        ledSat = looperPageSat;
-        break;
-      case patchChangePage:
-        ledHue = patchChangePageHue;
-        ledSat = basicSat;
-        break;
+    // switch (page)
+    // {
+    //   case basicPage:
+    //     // ledHue = basicPageHue;
+    //     ledSat = basicSat;
+    //     break;
+    //   case basicPlusTapTempoPage:
+    //     // ledHue = basicPlusTapTempoPageHue;
+    //     ledSat = basicSat;
+    //     break;
+    //   case looperPage:
+    //     // ledHue = looperPageHue;
+    //     ledSat = looperPageSat;
+    //     break;
+    //   case patchChangePage:
+    //     // ledHue = patchChangePageHue;
+    //     ledSat = basicSat;
+    //     break;
     
-      default:
-        break;
-    }
+    //   default:
+    //     break;
+    // }
+
+    ledHue = _page->getHue();
+    ledSat = _page->getSat();
 
 
     //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
