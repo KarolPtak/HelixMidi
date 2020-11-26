@@ -23,6 +23,11 @@ class BasePage {
 };
 
 class BasicPage : public BasePage {
+  private:
+    static const int midiCc1;
+    static const int midiCc2;
+    static const int midiCc3;
+    static const int midiCc4;      
   protected:
     virtual void updateLedStrip(); //do all these inherited method need to be repeated here?
   public:
@@ -37,6 +42,11 @@ class BasicPage : public BasePage {
 };
 
 class BasicPlusTapTempoPage : public BasePage {
+  private:
+    static const int midiCc1;
+    static const int midiCc2;
+    static const int midiCc3;
+    static const int midiCcTapTempo;   
   protected:
     virtual void updateLedStrip();
   public:
@@ -51,6 +61,11 @@ class BasicPlusTapTempoPage : public BasePage {
 };
 
 class LooperPage : public BasePage {
+  private:
+    static const int midiCc1;
+    static const int midiCc2;
+    static const int midiCc3;
+    static const int midiCc4;   
   protected:
     virtual void updateLedStrip();  
   public:
@@ -65,6 +80,11 @@ class LooperPage : public BasePage {
 };
 
 class PatchChangePage : public BasePage {
+  private:
+    static const int midiCc1;
+    static const int midiCc2;
+    static const int midiCc3;
+    static const int midiCc4;   
   protected:
     virtual void updateLedStrip();  
   public:

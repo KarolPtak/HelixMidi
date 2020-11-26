@@ -7,6 +7,10 @@
 
 
 
+    const int BasicPage::midiCc1 = 100;
+    const int BasicPage::midiCc2 = 101;
+    const int BasicPage::midiCc3 = 102;
+    const int BasicPage::midiCc4 = 103;
 
     int BasicPage::id() {
       return BASICPAGE;

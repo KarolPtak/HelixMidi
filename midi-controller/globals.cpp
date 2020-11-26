@@ -3,11 +3,6 @@
 
 //MIDI
 const int midiChannel = 1;
-const int midiCc1 = 100;
-const int midiCc2 = 101;
-const int midiCc3 = 102;
-const int midiCc4 = 103;
-
 const int midiLowValue = 0;
 const int midiHighValue = 127;
 

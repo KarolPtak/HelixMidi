@@ -10,11 +10,6 @@ extern MIDI_NAMESPACE::SerialMIDI<HardwareSerial> serialMIDI;
 extern MIDI_NAMESPACE::MidiInterface<MIDI_NAMESPACE::SerialMIDI<HardwareSerial>> MIDI; // Define the MIDI interface
 
 extern const int midiChannel;
-extern const int midiCc1;
-extern const int midiCc2;
-extern const int midiCc3;
-extern const int midiCc4;
-
 extern const int midiLowValue;
 extern const int midiHighValue;
 

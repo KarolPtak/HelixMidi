@@ -2,6 +2,10 @@
 #include "globals.h"
 #include <MIDI.h>
 
+    const int BasicPlusTapTempoPage::midiCc1 = 100;
+    const int BasicPlusTapTempoPage::midiCc2 = 101;
+    const int BasicPlusTapTempoPage::midiCc3 = 102;
+    const int BasicPlusTapTempoPage::midiCcTapTempo = 64; // Tap/Tempo when high value passed
 
     int BasicPlusTapTempoPage::id() {
       return BASICPLUSTAPTEMPOPAGE;
@@ -29,8 +33,7 @@
       updateLedStrip();
     }
     void BasicPlusTapTempoPage::button4Action() {
-      button4State = !button4State;
-      MIDI.sendControlChange(midiCc4, button4State == LOW ? midiLowValue : midiHighValue, midiChannel);
+      MIDI.sendControlChange(midiCcTapTempo, midiHighValue, midiChannel);
       updateLedStrip();
     }
     void BasicPlusTapTempoPage::setup() { //setup when page is changed to this
