@@ -18,6 +18,8 @@ extern const int midiLowValue;
 extern const int midiHighValue;
 
 //LEDSTRIP
+#define LED_COUNT 8 
+
 extern const int basicPageHue;
 extern const int basicPlusTapTempoPageHue;
 extern const int patchChangePageHue;
@@ -41,6 +43,11 @@ extern const int debounceTime; // debounce time helps eliminating false/accident
 //OTHER
 extern const int LED_PIN; // the number of the LED pin
 
+// //PAGES
+#define BASICPAGE 1
+#define BASICPLUSTAPTEMPOPAGE 2
+#define LOOPERPAGE 3
+#define PATCHCHANGEPAGE 4
 
 #endif
 

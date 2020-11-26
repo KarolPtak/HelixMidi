@@ -32,3 +32,4 @@ const int debounceTime = 50; // debounce time helps eliminating false/accidental
 
 //OTHER
 const int LED_PIN    = 13; // the number of the LED pin
+

@@ -3,6 +3,9 @@
 #include <MIDI.h>
 
 
+    int PatchChangePage::id() {
+      return PATCHCHANGEPAGE;
+    }
     int PatchChangePage::getHue() {
       return patchChangePageHue;
     }

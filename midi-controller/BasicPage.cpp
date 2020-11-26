@@ -8,6 +8,9 @@
 
 
 
+    int BasicPage::id() {
+      return BASICPAGE;
+    }
     int BasicPage::getHue() {
       return basicPageHue;
     }

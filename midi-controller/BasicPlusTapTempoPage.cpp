@@ -3,6 +3,9 @@
 #include <MIDI.h>
 
 
+    int BasicPlusTapTempoPage::id() {
+      return BASICPLUSTAPTEMPOPAGE;
+    }
     int BasicPlusTapTempoPage::getHue() {
       return basicPlusTapTempoPageHue;
     }

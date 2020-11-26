@@ -3,6 +3,9 @@
 #include <MIDI.h>
 
 
+    int LooperPage::id() {
+      return LOOPERPAGE;
+    }
     int LooperPage::getHue() {
       return looperPageHue;
     }

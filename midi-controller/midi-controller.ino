@@ -26,8 +26,6 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 
 
 //LEDSTRIP
-#define LED_COUNT 8 
-
 PololuLedStrip<12> ledStrip; // Create an ledStrip object and specify the pin it will use.
 rgb_color colors[LED_COUNT]; //buffer for holding the colors (3 bytes per color).
 
@@ -39,14 +37,7 @@ int ledSat = basicSat;
 unsigned long time = 0;
 
 
-const int basicPage = 1;
-const int basicPlusTapTempoPage = 2;
-const int looperPage = 3;
-const int patchChangePage = 4;
-//this page var and the consts above are probably no longer needed
-int page = basicPage;
-
-
+//PAGES
 BasicPage _basicPage;
 BasicPlusTapTempoPage _basicPlusTapTempoPage;
 LooperPage _looperPage;
@@ -104,18 +95,15 @@ void loop()
     if(!exited) //if before twoButtonTimeout any of buttons is depressed, do not trigger two button action
     {
       //these 2 buttons switch enter to basicPlusTapTempoPage and patchChangePage pages
-      switch(page){
-        case basicPlusTapTempoPage:
-          page = patchChangePage;
+      switch(_page->id()){
+        case BASICPLUSTAPTEMPOPAGE:
           _page = &_patchChangePage;
           break;
-        case patchChangePage:
-          page = basicPage;
+        case PATCHCHANGEPAGE:
           _page = &_basicPage;
           break;
         default:
-          page = basicPlusTapTempoPage; //if current page is basic or not from this subset, then go to first page from this subset
-          _page = &_basicPlusTapTempoPage;
+          _page = &_basicPlusTapTempoPage; //if current page is basic or not from this subset, then go to first page from this subset
           break;
       }
 
@@ -134,14 +122,12 @@ void loop()
 
     if(!exited) //if before twoButtonTimeout any of buttons is depressed, do not trigger two button action
     {
-      switch (page)
+      switch (_page->id())
       {
-        case looperPage:
-          page = basicPage;
+        case LOOPERPAGE:
           _page = &_basicPage;
           break;
         default:
-          page = looperPage;
           _page = &_looperPage;
           break;
       }
@@ -198,29 +184,6 @@ void clearTimes()
 
 void UpdateLedStrip()
 {
-    // switch (page)
-    // {
-    //   case basicPage:
-    //     // ledHue = basicPageHue;
-    //     ledSat = basicSat;
-    //     break;
-    //   case basicPlusTapTempoPage:
-    //     // ledHue = basicPlusTapTempoPageHue;
-    //     ledSat = basicSat;
-    //     break;
-    //   case looperPage:
-    //     // ledHue = looperPageHue;
-    //     ledSat = looperPageSat;
-    //     break;
-    //   case patchChangePage:
-    //     // ledHue = patchChangePageHue;
-    //     ledSat = basicSat;
-    //     break;
-    
-    //   default:
-    //     break;
-    // }
-
     ledHue = _page->getHue();
     ledSat = _page->getSat();
 
