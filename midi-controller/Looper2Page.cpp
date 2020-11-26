@@ -52,15 +52,14 @@
     }
         
     void Looper2Page::updateLedStrip() {
-        //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
-        colors[0] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);
-        colors[1] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);
-        colors[2] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
-        colors[3] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
-        colors[4] = hsvToRgb(looperPageHue, looperPageSat, ledDim);
-        colors[5] = hsvToRgb(tunerHue, tunerSat, ledDim);
-        colors[6] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
-        colors[7] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
+        colors[0] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
+        colors[1] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
+        colors[2] = hsvToRgb(tunerHue, tunerSat, ledDim);
+        colors[3] = hsvToRgb(looperPageHue, looperPageSat, ledDim);
+        colors[4] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
+        colors[5] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
+        colors[6] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);
+        colors[7] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);
 
         ledStrip.write(colors, LED_COUNT);  
     }   
