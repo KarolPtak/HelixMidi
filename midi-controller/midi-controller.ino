@@ -1,6 +1,7 @@
 #include <ezButton.h>
 #include <PololuLedStrip.h>
 #include <MIDI.h>
+#include "BasePage.h"
 #include "globals.h"
 
 
@@ -46,108 +47,12 @@ const int patchChangePage = 4;
 int page = basicPage;
 
 
-
-
-class BasePage {
-  public:
-    virtual int getHue() = 0;
-    virtual int getSat() = 0;
-    virtual void button1Action(int buttonState) = 0;
-    virtual void button2Action(int buttonState) = 0;
-    virtual void button3Action(int buttonState) = 0;
-    virtual void button4Action(int buttonState) = 0;
-    virtual void loop(){} // Let the page do its own job, like maybe blinking the tap/tempo led?
-};
-
-class BasicPage : public BasePage {
-  public:
-    virtual int getHue() {
-      return basicPageHue;
-    }
-    virtual int getSat() {
-      return basicSat;
-    }
-    virtual void button1Action(int buttonState) {
-      digitalWrite(LED_PIN, buttonState); //that's only for debugging
-      MIDI.sendControlChange(midiCc1, buttonState == LOW ? midiLowValue : midiHighValue, midiChannel);      
-    }
-    virtual void button2Action(int buttonState) {
-      MIDI.sendControlChange(midiCc2, buttonState == LOW ? midiLowValue : midiHighValue, midiChannel);
-    }
-    virtual void button3Action(int buttonState) {
-      MIDI.sendControlChange(midiCc3, buttonState == LOW ? midiLowValue : midiHighValue, midiChannel);
-    }
-    virtual void button4Action(int buttonState) {
-      MIDI.sendControlChange(midiCc4, buttonState == LOW ? midiLowValue : midiHighValue, midiChannel);
-    }
-};
-
-class BasicPlusTapTempoPage : public BasePage {
-  public:
-    virtual int getHue() {
-      return basicPlusTapTempoPageHue;
-    }
-    virtual int getSat() {
-      return basicSat;
-    }
-    virtual void button1Action(int buttonState) {
-      digitalWrite(LED_PIN, buttonState); //that's only for debugging
-    }
-    virtual void button2Action(int buttonState) {
-    }
-    virtual void button3Action(int buttonState) {
-    }
-    virtual void button4Action(int buttonState) {
-    }
-};
-
-class LooperPage : public BasePage {
-  public:
-    virtual int getHue() {
-      return looperPageHue;
-    }
-    virtual int getSat() {
-      return looperPageSat;
-    }
-    virtual void button1Action(int buttonState) {
-      digitalWrite(LED_PIN, buttonState); //that's only for debugging
-    }
-    virtual void button2Action(int buttonState) {
-    }
-    virtual void button3Action(int buttonState) {
-    }
-    virtual void button4Action(int buttonState) {
-    }
-};
-
-class PatchChangePage : public BasePage {
-  public:
-    virtual int getHue() {
-      return patchChangePageHue;
-    }
-    virtual int getSat() {
-      return basicSat;
-    }
-    virtual void button1Action(int buttonState) {
-      digitalWrite(LED_PIN, buttonState); //that's only for debugging
-    }
-    virtual void button2Action(int buttonState) {
-    }
-    virtual void button3Action(int buttonState) {
-    }
-    virtual void button4Action(int buttonState) {
-    }
-};
-
 BasicPage _basicPage;
 BasicPlusTapTempoPage _basicPlusTapTempoPage;
 LooperPage _looperPage;
 PatchChangePage _patchChangePage;
 
 BasePage *_page = &_basicPage;
-
-
-
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);   // set arduino pin to output mode
