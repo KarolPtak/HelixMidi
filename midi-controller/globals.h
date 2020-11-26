@@ -22,6 +22,7 @@ extern const int midiCcFs5;
 extern const int midiCcLooperRecordOverdub;
 extern const int midiCcLooperPlayStop;
 extern const int midiCcLooperUndo;
+extern const int midiCcTunerOnOff; // Tuner on/off
 
 //LEDSTRIP
 #define LED_COUNT 8 

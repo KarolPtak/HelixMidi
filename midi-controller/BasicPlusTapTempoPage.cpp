@@ -13,7 +13,12 @@
       MIDI.sendControlChange(midiCc1, button1State == LOW ? midiLowValue : midiHighValue, midiChannel);      
       updateLedStrip();
     }
-    void BasicPlusTapTempoPage::button2Action() {
+    void BasicPlusTapTempoPage::button2Action(boolean longPress) {
+      if(longPress){
+        tunerAction();
+        return;
+      }
+      
       button2State = !button2State;
       MIDI.sendControlChange(midiCc2, button2State == LOW ? midiLowValue : midiHighValue, midiChannel);
       updateLedStrip();

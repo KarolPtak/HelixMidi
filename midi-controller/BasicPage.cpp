@@ -4,6 +4,9 @@
 
 
     void BasePage::loop(){} // Let the page do its own job, like maybe blinking the tap/tempo led?
+    void BasePage::tunerAction(){
+      MIDI.sendControlChange(midiCcTunerOnOff, midiHighValue, midiChannel);    
+    }
 
 
 
@@ -16,7 +19,12 @@
       MIDI.sendControlChange(midiCc1, button1State == LOW ? midiLowValue : midiHighValue, midiChannel);    
       updateLedStrip();  
     }
-    void BasicPage::button2Action() {
+    void BasicPage::button2Action(boolean longPress) {
+      if(longPress){
+        tunerAction();
+        return;
+      }
+
       button2State = !button2State;
       MIDI.sendControlChange(midiCc2, button2State == LOW ? midiLowValue : midiHighValue, midiChannel);
       updateLedStrip();

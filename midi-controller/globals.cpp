@@ -15,6 +15,7 @@ const int midiCcFs5 = 53; // Simulates Fs5 press, any value is accepted
 const int midiCcLooperRecordOverdub = 60; // Looper record (when high)/overdub (low)
 const int midiCcLooperPlayStop = 61; // Looper play (when high)/stop (low)
 const int midiCcLooperUndo = 63; // Looper undo (high)
+const int midiCcTunerOnOff = 68; // Tuner on/off
 
 
 //LEDSTRIP

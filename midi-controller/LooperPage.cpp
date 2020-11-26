@@ -30,7 +30,12 @@
 
       updateLedStrip(); 
     }
-    void LooperPage::button2Action() {
+    void LooperPage::button2Action(boolean longPress) {
+      if(longPress){
+        tunerAction();
+        return;
+      }
+      
       //undo/redo has a bit more complex behaviour, so it may cause the state of active/recording, and the state of looper in the stomp to be not in sync
       MIDI.sendControlChange(midiCcLooperUndo, midiHighValue, midiChannel);
     }

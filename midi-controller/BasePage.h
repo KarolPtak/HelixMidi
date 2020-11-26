@@ -13,11 +13,12 @@ class BasePage {
   public:
     virtual int id() = 0;
     virtual void button1Action() = 0;
-    virtual void button2Action() = 0;
+    virtual void button2Action(boolean longPress) = 0;
     virtual void button3Action() = 0;
     virtual void button4Action() = 0;
     virtual void loop(); // Let the page do its own job, like maybe blinking the tap/tempo led?
     virtual void setup();
+    void tunerAction();
 };
 
 class BasicPage : public BasePage {
@@ -26,7 +27,7 @@ class BasicPage : public BasePage {
   public:
     virtual int id();
     virtual void button1Action();
-    virtual void button2Action();
+    virtual void button2Action(boolean longPress);
     virtual void button3Action();
     virtual void button4Action();
     virtual void setup();
@@ -38,7 +39,7 @@ class BasicPlusTapTempoPage : public BasePage {
   public:
     virtual int id();
     virtual void button1Action();
-    virtual void button2Action();
+    virtual void button2Action(boolean longPress);
     virtual void button3Action();
     virtual void button4Action();
     virtual void setup();
@@ -53,7 +54,7 @@ class LooperPage : public BasePage {
   public:
     virtual int id();
     virtual void button1Action();
-    virtual void button2Action();
+    virtual void button2Action(boolean longPress);
     virtual void button3Action();
     virtual void button4Action();
     virtual void setup();
@@ -69,7 +70,7 @@ class Looper2Page : public BasePage {
   public:
     virtual int id();
     virtual void button1Action();
-    virtual void button2Action();
+    virtual void button2Action(boolean longPress);
     virtual void button3Action();
     virtual void button4Action();
     virtual void setup();
@@ -82,7 +83,7 @@ class PatchChangePage : public BasePage {
   public:
     virtual int id();
     virtual void button1Action();
-    virtual void button2Action();
+    virtual void button2Action(boolean longPress);
     virtual void button3Action();
     virtual void button4Action();
     virtual void setup();

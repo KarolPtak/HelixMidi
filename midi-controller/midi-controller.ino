@@ -110,7 +110,7 @@ void loop()
   if(button3Time && button4Time)
   {
     time = millis();
-    boolean exited = false;
+    boolean exited = false; //will such a local variable cause memory allocation and memory leak in over a time? I'm asking, 'cause I'm a C# programmer on daily basis ;).
     while(millis() - time < twoButtonTimeout && !exited) //we can stop waiting faster if buttons are released
       exited = button3.getStateRaw() == HIGH || button4.getStateRaw() == HIGH;
 
@@ -144,7 +144,12 @@ void loop()
 
   if(millis() - button2Time > singleButtonTimeout && !button1Time && button2Time && !button3Time && !button4Time) 
   {
-    _page->button2Action();
+    time = millis();
+    boolean exited = false; //will such a local variable cause memory allocation and memory leak in over a time? I'm asking, 'cause I'm a C# programmer on daily basis ;).
+    while(millis() - time < twoButtonTimeout && !exited)
+      exited = button2.getStateRaw() == HIGH;    
+
+    _page->button2Action(!exited);
     clearTimes();
   }
   

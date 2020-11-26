@@ -10,7 +10,12 @@
       digitalWrite(LED_PIN, button1State); //that's only for debugging
       MIDI.sendControlChange(midiCcFs4, midiHighValue, midiChannel);  
     }
-    void PatchChangePage::button2Action() {
+    void PatchChangePage::button2Action(boolean longPress) {
+      if(longPress){
+        tunerAction();
+        return;
+      }
+      
       button2State = !button2State;
       MIDI.sendControlChange(midiCc2, button2State == LOW ? midiLowValue : midiHighValue, midiChannel);
       updateLedStrip();
