@@ -65,11 +65,12 @@ const int ledBright = 110;
 const int LED_PIN    = 13; // the number of the LED pin
 unsigned long time = 0;
 
+
 const int basicPage = 1;
 const int basicPlusTapTempoPage = 2;
 const int looperPage = 3;
 const int patchChangePage = 4;
-
+//this page var and the consts above are probably no longer needed
 int page = basicPage;
 
 
@@ -79,6 +80,11 @@ class BasePage {
   public:
     virtual int getHue() = 0;
     virtual int getSat() = 0;
+    virtual void button1Action(int buttonState) = 0;
+    virtual void button2Action(int buttonState) = 0;
+    virtual void button3Action(int buttonState) = 0;
+    virtual void button4Action(int buttonState) = 0;
+    virtual void loop(){} // Let the page do its own job, like maybe blinking the tap/tempo led?
 };
 
 class BasicPage : public BasePage {
@@ -88,6 +94,19 @@ class BasicPage : public BasePage {
     }
     virtual int getSat() {
       return basicSat;
+    }
+    virtual void button1Action(int buttonState) {
+      digitalWrite(LED_PIN, buttonState); //that's only for debugging
+      MIDI.sendControlChange(midiCc1, buttonState == LOW ? midiLowValue : midiHighValue, midiChannel);      
+    }
+    virtual void button2Action(int buttonState) {
+      MIDI.sendControlChange(midiCc2, buttonState == LOW ? midiLowValue : midiHighValue, midiChannel);
+    }
+    virtual void button3Action(int buttonState) {
+      MIDI.sendControlChange(midiCc3, buttonState == LOW ? midiLowValue : midiHighValue, midiChannel);
+    }
+    virtual void button4Action(int buttonState) {
+      MIDI.sendControlChange(midiCc4, buttonState == LOW ? midiLowValue : midiHighValue, midiChannel);
     }
 };
 
@@ -99,6 +118,15 @@ class BasicPlusTapTempoPage : public BasePage {
     virtual int getSat() {
       return basicSat;
     }
+    virtual void button1Action(int buttonState) {
+      digitalWrite(LED_PIN, buttonState); //that's only for debugging
+    }
+    virtual void button2Action(int buttonState) {
+    }
+    virtual void button3Action(int buttonState) {
+    }
+    virtual void button4Action(int buttonState) {
+    }
 };
 
 class LooperPage : public BasePage {
@@ -109,6 +137,15 @@ class LooperPage : public BasePage {
     virtual int getSat() {
       return looperPageSat;
     }
+    virtual void button1Action(int buttonState) {
+      digitalWrite(LED_PIN, buttonState); //that's only for debugging
+    }
+    virtual void button2Action(int buttonState) {
+    }
+    virtual void button3Action(int buttonState) {
+    }
+    virtual void button4Action(int buttonState) {
+    }
 };
 
 class PatchChangePage : public BasePage {
@@ -118,6 +155,15 @@ class PatchChangePage : public BasePage {
     }
     virtual int getSat() {
       return basicSat;
+    }
+    virtual void button1Action(int buttonState) {
+      digitalWrite(LED_PIN, buttonState); //that's only for debugging
+    }
+    virtual void button2Action(int buttonState) {
+    }
+    virtual void button3Action(int buttonState) {
+    }
+    virtual void button4Action(int buttonState) {
     }
 };
 
@@ -146,9 +192,10 @@ void setup() {
 void loop() 
 {
   button1.loop(); // MUST call the loop() function first
-  button2.loop(); // MUST call the loop() function first
-  button3.loop(); // MUST call the loop() function first
-  button4.loop(); // MUST call the loop() function first
+  button2.loop(); 
+  button3.loop(); 
+  button4.loop(); 
+  _page->loop();
 
 
   if(button1.isPressed())
@@ -174,7 +221,7 @@ void loop()
   {
     time = millis();
     boolean exited = false;
-    while(millis() - time < twoButtonTimeout && !exited) //we can stop waiting faster if buttons are released
+    while(millis() - time < twoButtonTimeout && !exited) //we can stop waiting sooner if buttons are released
       exited = button1.getStateRaw() == HIGH || button2.getStateRaw() == HIGH;
 
     if(!exited) //if before twoButtonTimeout any of buttons is depressed, do not trigger two button action
@@ -231,8 +278,7 @@ void loop()
   if(millis() - button1Time > singleButtonTimeout && button1Time && !button2Time && !button3Time && !button4Time) // if only first button is pressed, and is pressed for at least singleButtonTimeout miliseconds
   {
     button1State = !button1State; // toggle button's state
-    digitalWrite(LED_PIN, button1State); //that's only for debugging
-    MIDI.sendControlChange(midiCc1, button1State == LOW ? midiLowValue : midiHighValue, midiChannel);
+    _page->button1Action(button1State);
     UpdateLedStrip();
     clearTimes();
   }
@@ -240,7 +286,7 @@ void loop()
   if(millis() - button2Time > singleButtonTimeout && !button1Time && button2Time && !button3Time && !button4Time) 
   {
     button2State = !button2State; // toggle button's state
-    MIDI.sendControlChange(midiCc2, button2State == LOW ? midiLowValue : midiHighValue, midiChannel);
+    _page->button2Action(button2State);
     UpdateLedStrip();
     clearTimes();
   }
@@ -248,7 +294,7 @@ void loop()
   if(millis() - button3Time > singleButtonTimeout && !button1Time && !button2Time && button3Time && !button4Time) 
   {
     button3State = !button3State; // toggle button's state
-    MIDI.sendControlChange(midiCc3, button3State == LOW ? midiLowValue : midiHighValue, midiChannel);
+    _page->button3Action(button3State);
     UpdateLedStrip();
     clearTimes();
   }
@@ -256,7 +302,7 @@ void loop()
   if(millis() - button4Time > singleButtonTimeout && !button1Time && !button2Time && !button3Time && button4Time) 
   {
     button4State = !button4State; // toggle button's state
-    MIDI.sendControlChange(midiCc4, button4State == LOW ? midiLowValue : midiHighValue, midiChannel);
+    _page->button4Action(button4State);
     UpdateLedStrip();
     clearTimes();
   }      
