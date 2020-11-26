@@ -41,12 +41,12 @@
     void SnapshotChangePage::updateLedStrip() {
         colors[0] = hsvToRgb(snapshotChangePageHue, basicSat, currentSnapshot == 1 ? ledBright : ledDim);
         colors[1] = hsvToRgb(snapshotChangePageHue, basicSat, currentSnapshot == 1 ? ledBright : ledDim);
-        colors[2] = hsvToRgb(tunerHue,              tunerSat, currentSnapshot == 2 ? ledBright : ledDim);
-        colors[3] = hsvToRgb(snapshotChangePageHue, basicSat, currentSnapshot == 2 ? ledBright : ledDim);
+        colors[2] = hsvToRgb(snapshotChangePageHue, basicSat, currentSnapshot == 2 ? ledBright : ledDim);
+        colors[3] = hsvToRgb(tunerHue,              tunerSat, currentSnapshot == 2 ? ledBright : ledDim);
         colors[4] = hsvToRgb(snapshotChangePageHue, basicSat, currentSnapshot == 3 ? ledBright : ledDim);
         colors[5] = hsvToRgb(snapshotChangePageHue, basicSat, currentSnapshot == 3 ? ledBright : ledDim);
-        colors[6] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);
-        colors[7] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);
+        colors[6] = hsvToRgb(tapTempoHue,           tapTempoSat, ledDim);
+        colors[7] = hsvToRgb(tapTempoHue,           tapTempoSat, ledDim);
 
         ledStrip.write(colors, LED_COUNT);  
     }   

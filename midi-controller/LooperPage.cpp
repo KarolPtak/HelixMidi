@@ -60,14 +60,14 @@
     }
         
     void LooperPage::updateLedStrip() {
-        colors[0] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
-        colors[1] = hsvToRgb(looperPageHue, looperPageSat, active == false ? ledDim : ledBright);
-        colors[2] = hsvToRgb(tunerHue, tunerSat, ledDim);
-        colors[3] = hsvToRgb(looperPageHue, looperPageSat, ledDim);
+        colors[0] = hsvToRgb(looperPageHue,   looperPageSat, active == false ? ledDim : ledBright);
+        colors[1] = hsvToRgb(looperPageHue,   looperPageSat, active == false ? ledDim : ledBright);
+        colors[2] = hsvToRgb(looperPageHue,   looperPageSat, ledDim);
+        colors[3] = hsvToRgb(tunerHue,        tunerSat, ledDim);
         colors[4] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);
         colors[5] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);
-        colors[6] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim); 
-        colors[7] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);
+        colors[6] = hsvToRgb(tapTempoHue,     tapTempoSat, ledDim); 
+        colors[7] = hsvToRgb(tapTempoHue,     tapTempoSat, ledDim);
 
         ledStrip.write(colors, LED_COUNT);  
     }   

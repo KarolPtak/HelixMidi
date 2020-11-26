@@ -37,14 +37,14 @@
     }
 
     void BasicPlusTapTempoPage::updateLedStrip() {
-        colors[0] = hsvToRgb(basicPageHue, basicSat, button1State == LOW ? ledDim : ledBright);
-        colors[1] = hsvToRgb(basicPageHue, basicSat, button1State == LOW ? ledDim : ledBright);
-        colors[2] = hsvToRgb(tunerHue, tunerSat, button2State == LOW ? ledDim : ledBright);
-        colors[3] = hsvToRgb(basicPageHue, basicSat, button2State == LOW ? ledDim : ledBright);
-        colors[4] = hsvToRgb(basicPageHue, basicSat, button3State == LOW ? ledDim : ledBright);
-        colors[5] = hsvToRgb(basicPageHue, basicSat, button3State == LOW ? ledDim : ledBright);
-        colors[6] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);
-        colors[7] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);
+        colors[0] = hsvToRgb(basicPageHue,  basicSat, button1State == LOW ? ledDim : ledBright);
+        colors[1] = hsvToRgb(basicPageHue,  basicSat, button1State == LOW ? ledDim : ledBright);
+        colors[2] = hsvToRgb(basicPageHue,  basicSat, button2State == LOW ? ledDim : ledBright);
+        colors[3] = hsvToRgb(tunerHue,      tunerSat, button2State == LOW ? ledDim : ledBright);
+        colors[4] = hsvToRgb(basicPageHue,  basicSat, button3State == LOW ? ledDim : ledBright);
+        colors[5] = hsvToRgb(basicPageHue,  basicSat, button3State == LOW ? ledDim : ledBright);
+        colors[6] = hsvToRgb(tapTempoHue,   tapTempoSat, ledDim);
+        colors[7] = hsvToRgb(tapTempoHue,   tapTempoSat, ledDim);
 
         ledStrip.write(colors, LED_COUNT);  
     }   

@@ -37,11 +37,10 @@
     }
         
     void BasicPage::updateLedStrip() {
-        //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
         colors[0] = hsvToRgb(basicPageHue, basicSat, button1State == LOW ? ledDim : ledBright);
         colors[1] = hsvToRgb(basicPageHue, basicSat, button1State == LOW ? ledDim : ledBright);
-        colors[2] = hsvToRgb(tunerHue, tunerSat, button2State == LOW ? ledDim : ledBright);
-        colors[3] = hsvToRgb(basicPageHue, basicSat, button2State == LOW ? ledDim : ledBright);
+        colors[2] = hsvToRgb(basicPageHue, basicSat, button2State == LOW ? ledDim : ledBright);
+        colors[3] = hsvToRgb(tunerHue,     tunerSat, button2State == LOW ? ledDim : ledBright);
         colors[4] = hsvToRgb(basicPageHue, basicSat, button3State == LOW ? ledDim : ledBright);
         colors[5] = hsvToRgb(basicPageHue, basicSat, button3State == LOW ? ledDim : ledBright);
         colors[6] = hsvToRgb(basicPageHue, basicSat, button4State == LOW ? ledDim : ledBright);
