@@ -27,6 +27,7 @@ unsigned long time = 0;
 BasicPage _basicPage;
 BasicPlusTapTempoPage _basicPlusTapTempoPage;
 LooperPage _looperPage;
+Looper2Page _looper2Page;
 PatchChangePage _patchChangePage;
 
 BasePage *_page = &_basicPage;
@@ -111,6 +112,9 @@ void loop()
       switch (_page->id())
       {
         case LOOPERPAGE:
+          _page = &_looper2Page;
+          break;
+        case LOOPER2PAGE:
           _page = &_basicPage;
           break;
         default:

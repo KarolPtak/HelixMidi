@@ -68,6 +68,24 @@ class LooperPage : public BasePage {
     LooperPage();
 };
 
+class Looper2Page : public BasePage {
+  private:
+    boolean active;
+    boolean recording;
+  protected:
+    virtual void updateLedStrip();  
+  public:
+    virtual int id();
+    virtual int getHue();
+    virtual int getSat();
+    virtual void button1Action();
+    virtual void button2Action();
+    virtual void button3Action();
+    virtual void button4Action();
+    virtual void setup();
+    Looper2Page();
+};
+
 class PatchChangePage : public BasePage {
   protected:
     virtual void updateLedStrip();  

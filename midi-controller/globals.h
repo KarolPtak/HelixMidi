@@ -59,8 +59,9 @@ extern const int LED_PIN; // the number of the LED pin
 //PAGES
 #define BASICPAGE 1
 #define BASICPLUSTAPTEMPOPAGE 2
-#define LOOPERPAGE 3
-#define PATCHCHANGEPAGE 4
+#define PATCHCHANGEPAGE 3
+#define LOOPERPAGE 4
+#define LOOPER2PAGE 5
 
 
 extern rgb_color hsvToRgb(uint16_t h, uint8_t s, uint8_t v);
