@@ -14,7 +14,7 @@
       updateLedStrip();
     }
     void BasicPlusTapTempoPage::button2Action(boolean longPress) {
-      if(longPress){
+      if(longPress) {
         tunerAction();
         return;
       }
@@ -36,8 +36,7 @@
       updateLedStrip();
     }
 
-    void BasicPlusTapTempoPage::updateLedStrip()
-    {
+    void BasicPlusTapTempoPage::updateLedStrip() {
         //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
         colors[0] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);
         colors[1] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);

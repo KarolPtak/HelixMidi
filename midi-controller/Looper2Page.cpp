@@ -2,7 +2,7 @@
 #include "globals.h"
 #include <MIDI.h>
 
-    Looper2Page::Looper2Page(){
+    Looper2Page::Looper2Page() {
       active = false;
       recording = false;
     }
@@ -20,7 +20,7 @@
         updateLedStrip(); 
     }
     void Looper2Page::button2Action(boolean longPress) {
-      if(longPress){
+      if(longPress) {
         tunerAction();
         return;
       }
@@ -51,8 +51,7 @@
       updateLedStrip();
     }
         
-    void Looper2Page::updateLedStrip()
-    {
+    void Looper2Page::updateLedStrip() {
         //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
         colors[0] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);
         colors[1] = hsvToRgb(looperRecordHue, looperRecordSat, recording == false ? ledDim : ledBright);

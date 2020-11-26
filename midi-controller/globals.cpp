@@ -58,8 +58,7 @@ const int eepromAddress = 123; //some random address ;)
 // h is hue, as a number between 0 and 360.
 // s is the saturation, as a number between 0 and 255.
 // v is the value, as a number between 0 and 255.
-rgb_color hsvToRgb(uint16_t h, uint8_t s, uint8_t v)
-{
+rgb_color hsvToRgb(uint16_t h, uint8_t s, uint8_t v) {
     uint8_t f = (h % 60) * 255 / 60;
     uint8_t p = (255 - s) * (uint16_t)v / 255;
     uint8_t q = (255 - f * (uint16_t)s / 255) * (uint16_t)v / 255;

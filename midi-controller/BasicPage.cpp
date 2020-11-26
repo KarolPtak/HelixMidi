@@ -4,7 +4,7 @@
 
 
     void BasePage::loop(){} // Let the page do its own job, like maybe blinking the tap/tempo led?
-    void BasePage::tunerAction(){
+    void BasePage::tunerAction() {
       MIDI.sendControlChange(midiCcTunerOnOff, midiHighValue, midiChannel);    
     }
 
@@ -20,7 +20,7 @@
       updateLedStrip();  
     }
     void BasicPage::button2Action(boolean longPress) {
-      if(longPress){
+      if(longPress) {
         tunerAction();
         return;
       }
@@ -43,8 +43,7 @@
       updateLedStrip();
     }
         
-    void BasicPage::updateLedStrip()
-    {
+    void BasicPage::updateLedStrip() {
         //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
         colors[0] = hsvToRgb(basicPageHue, basicSat, button4State == LOW ? ledDim : ledBright);
         colors[1] = hsvToRgb(basicPageHue, basicSat, button4State == LOW ? ledDim : ledBright);

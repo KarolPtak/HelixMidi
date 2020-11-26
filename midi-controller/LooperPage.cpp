@@ -2,7 +2,7 @@
 #include "globals.h"
 #include <MIDI.h>
 
-    LooperPage::LooperPage(){
+    LooperPage::LooperPage() {
       active = false;
       recording = false;
     }
@@ -14,11 +14,11 @@
       digitalWrite(LED_PIN, active); //that's only for debugging
 
       if(active) {
-        if(recording){
+        if(recording) {
           recording = false;
           MIDI.sendControlChange(midiCcLooperPlayStop, midiHighValue, midiChannel); //Send play signal, stop recording
         }
-        else{
+        else {
           active = false;
           MIDI.sendControlChange(midiCcLooperPlayStop, midiLowValue, midiChannel); //Send stop signal, stop recording
         }
@@ -31,7 +31,7 @@
       updateLedStrip(); 
     }
     void LooperPage::button2Action(boolean longPress) {
-      if(longPress){
+      if(longPress) {
         tunerAction();
         return;
       }
@@ -40,8 +40,7 @@
       MIDI.sendControlChange(midiCcLooperUndo, midiHighValue, midiChannel);
     }
     void LooperPage::button3Action() {
-
-      if(active == false){
+      if(active == false) {
         active = true;
         recording = true;
         MIDI.sendControlChange(midiCcLooperRecordOverdub, midiHighValue, midiChannel); //Send record signal, turn on looper and start recording
@@ -60,8 +59,7 @@
       updateLedStrip();
     }
         
-    void LooperPage::updateLedStrip()
-    {
+    void LooperPage::updateLedStrip() {
         //led strip is temporaliry mounted upside down, so leds go in order from right to left, so need to reverse here too
         colors[0] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim);
         colors[1] = hsvToRgb(tapTempoHue, tapTempoSat, ledDim); 

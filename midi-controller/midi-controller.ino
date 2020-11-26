@@ -50,8 +50,7 @@ void setup() {
   _page->setup();
 }
 
-void loop() 
-{
+void loop() {
   button1.loop(); // MUST call the loop() function first
   button2.loop(); 
   button3.loop(); 
@@ -78,15 +77,13 @@ void loop()
     button4Time = 0;
 
 
-  if(button1Time && button2Time)
-  {
+  if(button1Time && button2Time) {
     time = millis();
     boolean exited = false;
     while(millis() - time < twoButtonTimeout && !exited) //we can stop waiting sooner if buttons are released
       exited = button1.getStateRaw() == HIGH || button2.getStateRaw() == HIGH;
 
-    if(!exited) //if before twoButtonTimeout any of buttons is depressed, do not trigger two button action
-    {
+    if(!exited) { //if before twoButtonTimeout any of buttons is depressed, do not trigger two button action
       //these 2 buttons switch enter to basicPlusTapTempoPage and patchChangePage pages
       switch(_page->id()){
         case BASICPLUSTAPTEMPOPAGE:
@@ -107,17 +104,14 @@ void loop()
     clearTimes(); //we 'consumed' current buttons hits
   }
 
-  if(button3Time && button4Time)
-  {
+  if(button3Time && button4Time) {
     time = millis();
     boolean exited = false; //will such a local variable cause memory allocation and memory leak in over a time? I'm asking, 'cause I'm a C# programmer on daily basis ;).
     while(millis() - time < twoButtonTimeout && !exited) //we can stop waiting faster if buttons are released
       exited = button3.getStateRaw() == HIGH || button4.getStateRaw() == HIGH;
 
-    if(!exited) //if before twoButtonTimeout any of buttons is depressed, do not trigger two button action
-    {
-      switch (_page->id())
-      {
+    if(!exited) { //if before twoButtonTimeout any of buttons is depressed, do not trigger two button action
+      switch (_page->id()) {
         case LOOPERPAGE:
           _page = &_looper2Page;
           break;
@@ -136,14 +130,12 @@ void loop()
     clearTimes();    
   }  
 
-  if(millis() - button1Time > singleButtonTimeout && button1Time && !button2Time && !button3Time && !button4Time) // if only first button is pressed, and is pressed for at least singleButtonTimeout miliseconds
-  {
+  if(millis() - button1Time > singleButtonTimeout && button1Time && !button2Time && !button3Time && !button4Time) { // if only first button is pressed, and is pressed for at least singleButtonTimeout miliseconds
     _page->button1Action();
     clearTimes();
   }
 
-  if(millis() - button2Time > singleButtonTimeout && !button1Time && button2Time && !button3Time && !button4Time) 
-  {
+  if(millis() - button2Time > singleButtonTimeout && !button1Time && button2Time && !button3Time && !button4Time) {
     time = millis();
     boolean exited = false; //will such a local variable cause memory allocation and memory leak in over a time? I'm asking, 'cause I'm a C# programmer on daily basis ;).
     while(millis() - time < twoButtonTimeout && !exited)
@@ -153,31 +145,26 @@ void loop()
     clearTimes();
   }
   
-  if(millis() - button3Time > singleButtonTimeout && !button1Time && !button2Time && button3Time && !button4Time) 
-  {
+  if(millis() - button3Time > singleButtonTimeout && !button1Time && !button2Time && button3Time && !button4Time) {
     _page->button3Action();
     clearTimes();
   }
 
-  if(millis() - button4Time > singleButtonTimeout && !button1Time && !button2Time && !button3Time && button4Time) 
-  {
+  if(millis() - button4Time > singleButtonTimeout && !button1Time && !button2Time && !button3Time && button4Time) {
     _page->button4Action();
     clearTimes();
   }      
 }
 
-void clearTimes()
-{
+void clearTimes() {
   button1Time = 0;
   button2Time = 0;
   button3Time = 0;
   button4Time = 0;
 }
 
-
-BasePage* getPage(int pageId){
-  switch (pageId)
-  {
+BasePage* getPage(int pageId) {
+  switch (pageId) {
   case BASICPAGE:
     return &_basicPage;
   case BASICPLUSTAPTEMPOPAGE:
