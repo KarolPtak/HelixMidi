@@ -9,9 +9,42 @@ Short demo: https://youtu.be/-W3b5MKsnIc
 
 I did it when it's turned out that I neeed more than 3 footswitches ;-) , and the price of stock midi controllers was too high. More likely I'd sell the stomp and buy helix lt instead, if I had to pay for the controller.
 
-It handles 4 additional FS and sends them over a midi.
+It offers 6 different pages (modes), and covers nearly everything that the hx stomp can accept through the midi :)
+It is powered directly from USB, works fine with hx stomp, no buzz/hum
 
-Midi channel is 1 and CC messages 100-103. These values and number of FS is quite easy to modify, since the program is very simple.
+- basic - 4 'classic' switches
+- basic+ - 3 'classic' switches + tap/tempo
+- preset change - Fs4,5 emulation + 1 'classic' + tap/tempo
+- snapshot change - 3 snapshot switches + tap/tempo
+- looper 1 - record/overdub, play/stop, undo/redo, tap/tempo
+- looper 2 - record/overdub, play, stop, undo/redo
+
+- tuner on/off always available when long pressing fs2
+
+## Brief user manual :) :
+
+You can cycle between basic, basic+, preset and snapshot change by long pressing fs1 and fs2 simultaneously.
+Clycle between basic, looper 1, looper 2 by long pressing fs3 and fs4 simultaneously.
+Each page has it's own color set - I've tried to reflect hx stomp colors as closely as possible :).
+
+Current page is saved in memory, so next time you turn on the controller, it will go back to it.
+
+
+Footswitch functions in particular page:
+Basic : fs1-4 - 'classic switches' (midi cc codes 100-103)
+Basic+ : fs1-3 - 'classic switches' (midi cc codes 100-102), fs4 - tap/tempo
+Preset change: fs1 - Fs4 emulation, fs2 - 'classic switch' (midi cc code 101), fs3 - Fs5 emulation, fs4 - tap/tempo
+Snapshot change: fs1-3 - snapshot 1-3, fs4 - tap/tempo
+Looper 1 - fs1: play/stop, fs2 - undo/redo, fs3 - record/overdub, fs4 - tap/tempo
+Looper 2 - fs1: stop, fs2 - undo/redo, fs3 - play, fs4 - record/overdub
+
+In the looper modes leds function is a bit different, and it displays if the looper is active, and if record/overdub is in progres.
+So eg. after hitting record/overdub (first time) leds indicating looper and record activation will be lit, and then, if You hit the play switch, the record led will be shut. However it's not 100% accurate - (eg. undo/redo hit just after recording is started for the first time seems to turn the looper in the hx stomp off, but it's the best I could do ;-)
+
+
+Tap tempo blinking - sadly my led blinking implementation did not keep up the same tempo as the stomp. Probably it was implemented too naive way ;), or just a real time clock is needed to do it? hmm...
+
+## Programming
 
 3 external libraries are used for midi, ledstrip and button handling. You can add them via Arduino IDE -> Tools -> Manage Libraries...
 
@@ -20,7 +53,9 @@ Add:
 - Freenove WS2812B RGBLED Controller
 - ezButton
 
-It is powered directly from USB, works fine with hx stomp, no buzz/hum
+Sketch uses 8194 bytes (26%) of program storage space. Maximum is 30720 bytes.
+Global variables use 740 bytes (36%) of dynamic memory, leaving 1308 bytes for local variables. Maximum is 2048 bytes.
+
 
 ## Elements used
 
