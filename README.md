@@ -31,12 +31,12 @@ Current page is saved in memory, so next time you turn on the controller, it wil
 
 
 Footswitch functions in particular page:
-Basic : fs1-4 - 'classic switches' (midi cc codes 100-103)
-Basic+ : fs1-3 - 'classic switches' (midi cc codes 100-102), fs4 - tap/tempo
-Preset change: fs1 - Fs4 emulation, fs2 - 'classic switch' (midi cc code 101), fs3 - Fs5 emulation, fs4 - tap/tempo
-Snapshot change: fs1-3 - snapshot 1-3, fs4 - tap/tempo
-Looper 1 - fs1: play/stop, fs2 - undo/redo, fs3 - record/overdub, fs4 - tap/tempo
-Looper 2 - fs1: stop, fs2 - undo/redo, fs3 - play, fs4 - record/overdub
+- Basic : fs1-4 - 'classic switches' (midi cc codes 100-103)
+- Basic+ : fs1-3 - 'classic switches' (midi cc codes 100-102), fs4 - tap/tempo
+- Preset change: fs1 - Fs4 emulation, fs2 - 'classic switch' (midi cc code 101), fs3 - Fs5 emulation, fs4 - tap/tempo
+- Snapshot change: fs1-3 - snapshot 1-3, fs4 - tap/tempo
+- Looper 1 - fs1: play/stop, fs2 - undo/redo, fs3 - record/overdub, fs4 - tap/tempo
+- Looper 2 - fs1: stop, fs2 - undo/redo, fs3 - play, fs4 - record/overdub
 
 In the looper modes leds function is a bit different, and it displays if the looper is active, and if record/overdub is in progres.
 So eg. after hitting record/overdub (first time) leds indicating looper and record activation will be lit, and then, if You hit the play switch, the record led will be shut. However it's not 100% accurate - (eg. undo/redo hit just after recording is started for the first time seems to turn the looper in the hx stomp off, but it's the best I could do ;-)
